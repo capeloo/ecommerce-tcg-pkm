@@ -1,0 +1,93 @@
+body.register-body {
+    background-color: #7caefc;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: -moz-hidden-unscrollable;
+}
+
+main.register-main {
+    background-color: #f3f6fd;
+    border-radius: 12px;
+    padding: 24px;
+    width: 360px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+img.register-logo {
+    width: 60px;
+    height: auto;
+    margin-bottom: 16px;
+}
+
+
+h1.register-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+p.register-description {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 24px;
+}
+
+
+section.register-input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+input.register-input {
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+input.register-input:focus {
+    border-color: #7caefc;
+    outline: none;
+    box-shadow: 0 0 4px rgba(124, 174, 252, 0.5);
+}
+
+
+button.register-button {
+    background-color: #7caefc;
+    color: #fff;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.register-button:hover {
+    background-color: #5d91e6;
+}
+
+
+p.register-login {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+a.register-login-link {
+    color: #7caefc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a.register-login-link:hover {
+    text-decoration: underline;
+}

@@ -9,62 +9,78 @@ import { CommonModule } from '@angular/common';
   selector: 'app-auth',
   imports: [ReactiveFormsModule, CommonModule, RouterModule],
   template: `
-    <body>
-      <main>
-        <form [formGroup]="authForm" (ngSubmit)="loginUsuario()">
-          <!-- Logo -->
+    <body class="auth-body">
+      <main class="auth-main">
+        <form [formGroup]="authForm" (ngSubmit)="loginUsuario()" class="auth-form">
           <img 
             src="" 
             alt="logo"
+            class="auth-logo"
           > 
-          <h1>Entre na sua conta</h1>
-          <p>
-            Nela você consegue ver suas compras anteriores
-            e adquirir novos cards para sua coleção!
+          <h1 class="auth-title">Faça login na Loja</h1>
+          <p class="auth-description">
+            Acesse sua conta para ver suas compras anteriores
+            ou adquirir novos cards para sua coleção!
           </p>
-          <div *ngIf="authError">
+
+          <div *ngIf="authError" class="auth-error">
             <p>{{ authError }}</p>
           </div>
-          <section>
-              <input 
-                type="email" name="email" id="email" placeholder="E-mail"
-                formControlName="email" required
-              >
-              <!-- Implementar visibilidade da senha -->
-              <input 
-                type="password" name="senha" id="senha" placeholder="Senha"
-                formControlName="senha" required
-              >
-            <p>Esqueceu sua senha?</p>
-            <button type="submit">Entrar</button>
+
+          <section class="auth-input-section">
+            <input 
+              type="email" 
+              name="email" 
+              id="email" 
+              placeholder="E-mail*" 
+              formControlName="email" 
+              class="auth-input" 
+              required
+            >
+            <input 
+              type="password" 
+              name="senha" 
+              id="senha" 
+              placeholder="Senha*" 
+              formControlName="senha" 
+              class="auth-input" 
+              required
+            >
           </section>
-          <p>Não possui cadastro? <a [routerLink]="['/register']">Cadastre-se aqui</a></p>
+
+          <button type="submit" class="auth-button">Entrar</button>
+
+          <p class="auth-register">
+            Não possui cadastro? 
+            <a [routerLink]="['/register']" class="auth-register-link">Cadastre-se aqui</a>
+          </p>
         </form>
       </main>
     </body>
   `,
-  styleUrl: './auth.component.css'
+  styleUrls: ['./auth.component.css']
 })
+
 
 export class AuthComponent {
   authError: string = '';
   appService = inject(AppService);
-  
-  constructor(private router: Router){}
+
+  constructor(private router: Router) { }
 
   authForm = new FormGroup({
     email: new FormControl(''),
     senha: new FormControl(''),
   });
 
-  async loginUsuario(){
+  async loginUsuario() {
     try {
       const usuario = await this.appService.autenticarUsuario(
         this.authForm.value.email ?? '',
         this.authForm.value.senha ?? '',
       );
-    
-      if(usuario?.id) {
+
+      if (usuario?.id) {
         this.router.navigate(['home']);
 
       } else {

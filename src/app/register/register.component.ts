@@ -5,34 +5,68 @@ import { RouterModule } from '@angular/router';
   selector: 'app-register',
   imports: [RouterModule],
   template: `
-    <body>
-      <main>
-        <form action="">
-          <!-- Logo -->
+    <body class="register-body">
+      <main class="register-main">
+        <form action="" class="register-form">
           <img 
             src="" 
             alt="logo"
+            class="register-logo"
           > 
-          <h1>Crie sua conta</h1>
-          <p>
+          <h1 class="register-title">Crie sua conta</h1>
+          <p class="register-description">
             Ainda não possui cadastro? Insira suas informações
             para que a gente possa lhe conhecer e comece sua jornada!
           </p>
-          <section>
-            <input type="text" name="nome" id="nome" placeholder="Nome Completo*" required>
-            <input type="email" name="email" id="email" placeholder="E-mail*" required>
-            <input type="password" name="senha" id="senha" placeholder="Senha*" required>
-            <input type="password" name="confirma_senha" id="confirma_senha" placeholder="Confirme a senha*" required>
 
-            <button type="submit">Cadastrar</button>
+          <section class="register-input-section">
+            <input 
+              type="text" 
+              name="nome" 
+              id="nome" 
+              placeholder="Nome Completo*" 
+              class="register-input" 
+              required
+            >
+            <input 
+              type="email" 
+              name="email" 
+              id="email" 
+              placeholder="E-mail*" 
+              class="register-input" 
+              required
+            >
+            <input 
+              type="password" 
+              name="senha" 
+              id="senha" 
+              placeholder="Senha*" 
+              class="register-input" 
+              required
+            >
+            <input 
+              type="password" 
+              name="confirma_senha" 
+              id="confirma_senha" 
+              placeholder="Confirme a senha*" 
+              class="register-input" 
+              required
+            >
           </section>
-          <p>Já possui cadastro? <a [routerLink]="['/']">Entre por aqui</a></p>
+
+          <button type="submit" class="register-button">Cadastrar</button>
+
+          <p class="register-login">
+            Já possui cadastro? 
+            <a [routerLink]="['/']" class="register-login-link">Entre por aqui</a>
+          </p>
         </form>
       </main>
     </body>
   `,
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent {
 
 }
