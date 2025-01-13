@@ -1,16 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from '../app.service';
+import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-auth',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   template: `
     <body>
       <main>
-        <form [formGroup]="authForm" (submit)="autenticarUsuario()">
+        <form [formGroup]="authForm" (ngSubmit)="loginUsuario()">
           <!-- Logo -->
           <img 
             src="" 
@@ -37,7 +38,7 @@ import { CommonModule } from '@angular/common';
             <p>Esqueceu sua senha?</p>
             <button type="submit">Entrar</button>
           </section>
-          <p>Não possui cadastro? <a href="#">Cadastre-se aqui</a></p>
+          <p>Não possui cadastro? <a [routerLink]="['/register']">Cadastre-se aqui</a></p>
         </form>
       </main>
     </body>
@@ -56,16 +57,22 @@ export class AuthComponent {
     senha: new FormControl(''),
   });
 
-  async autenticarUsuario(){
-    const usuario = this.appService.autenticarUsuario(
-      this.authForm.value.email ?? '',
-      this.authForm.value.senha ?? '',
-    );
+  async loginUsuario(){
+    try {
+      const usuario = await this.appService.autenticarUsuario(
+        this.authForm.value.email ?? '',
+        this.authForm.value.senha ?? '',
+      );
+    
+      if(usuario?.id) {
+        this.router.navigate(['home']);
 
-    if(await usuario) {
-      this.router.navigate(['home']);
-    } else {
-      this.authError = 'Credenciais inválidas';
+      } else {
+        this.authError = 'Credenciais inválidas';
+      }
+    } catch (error) {
+      this.authError = 'Erro ao autenticar. Tente novamente mais tarde.';
+      console.error(error);
     }
   }
 }
