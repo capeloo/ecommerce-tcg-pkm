@@ -9,9 +9,16 @@ import { CommonModule } from '@angular/common';
   selector: 'app-auth',
   imports: [ReactiveFormsModule, CommonModule, RouterModule],
   template: `
+<<<<<<< Updated upstream
     <body class="auth-body">
       <main class="auth-main">
         <form [formGroup]="authForm" (ngSubmit)="loginUsuario()" class="auth-form">
+=======
+    <body>
+      <main>
+        <form [formGroup]="authForm" (ngSubmit)="signInUsuario()">
+          <!-- Logo -->
+>>>>>>> Stashed changes
           <img 
             src="" 
             alt="logo"
@@ -73,7 +80,11 @@ export class AuthComponent {
     senha: new FormControl(''),
   });
 
+<<<<<<< Updated upstream
   async loginUsuario() {
+=======
+  async signInUsuario(){
+>>>>>>> Stashed changes
     try {
       const usuario = await this.appService.autenticarUsuario(
         this.authForm.value.email ?? '',

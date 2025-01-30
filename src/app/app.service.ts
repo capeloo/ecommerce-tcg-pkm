@@ -7,7 +7,7 @@ import { Usuario } from "../model/usuario";
 
 export class AppService {
 
-    url = 'http://localhost:8080/api/ecommerce/login';
+    url = 'http://localhost:8080/api/ecommerce/';
 
     async autenticarUsuario(email: string, senha: string): Promise<Usuario | null>{
 
@@ -17,7 +17,7 @@ export class AppService {
         };
 
         try {
-            const response = await fetch(this.url, {
+            const response = await fetch(this.url + "auth", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -34,4 +34,8 @@ export class AppService {
         }
     } 
 
+    async desconectarUsuario(){
+        const data = await fetch(this.url + "signout");
+        return (await data.json());
+    }
 }

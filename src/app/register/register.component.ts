@@ -53,6 +53,7 @@ import { RouterModule } from '@angular/router';
               required
             >
           </section>
+<<<<<<< Updated upstream
 
           <button type="submit" class="register-button">Cadastrar</button>
 
@@ -60,6 +61,9 @@ import { RouterModule } from '@angular/router';
             Já possui cadastro? 
             <a [routerLink]="['/']" class="register-login-link">Entre por aqui</a>
           </p>
+=======
+          <p>Já possui cadastro? <a [routerLink]="['/auth']">Entre por aqui</a></p>
+>>>>>>> Stashed changes
         </form>
       </main>
     </body>
