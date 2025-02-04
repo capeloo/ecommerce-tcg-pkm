@@ -11,6 +11,11 @@ img#logo {
     margin-left: 0.5rem;
 }
 
+img#logo:hover {
+    cursor: pointer;
+    border: 1px solid white;
+}
+
 img#lupa {
     width: 1rem;
     height: 1rem;
@@ -35,11 +40,16 @@ div#search-bar>input {
     border: none;
 }
 
+div#search-bar:hover, div#search-bar:focus {
+    border: 1px solid white;
+}
+
 div#search-bar>input:focus {
     outline: none;
 }
 
-div#dropdown  {
+
+div.dropdown  {
     width: 11vw;
     padding: 0.5rem;
     margin-right: 0.5rem;
@@ -49,39 +59,87 @@ div#dropdown  {
     display: inline-block;
 }
 
-.dropbtn {
+.dropdown-button {
     cursor: pointer;
     border: 1px solid var(--blue500);
     padding: 0.2rem;
 }
 
-.dropbtn:hover, .dropbtn:focus {
+.dropdown-button:hover, .dropdown-button:focus {
     border: 1px solid white;
 }
 
 .dropdown-content {
-    display: none;
     position: absolute;
-    background-color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--blue100);
     min-width: 160px;
+    padding: 1rem;
+    right: 8px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
 .dropdown-content>a {
-    color: black;
-    padding: 12px 16px;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    background-color: var(--blue500);
+    width: 120px;
+    padding: 0.5rem;
     text-decoration: none;
     display: block;
+    cursor: pointer;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
-.dropdown-content>a:hover {
-    background-color: #ddd;
+.dropdown-content>a:hover, .dropdown-content>a:focus {
+    background-color: var(--blue100);
+    color: var(--blue500);
 }
 
-.show {
-    display: block;
+.dropdown-content>p {
+    font-family: sans-serif;
+    color: black;
+    padding: 0.5rem;
 }
+
+a.foto-perfil {
+    width: 3rem;
+    height: 2.65rem;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+a.foto-perfil>img {
+    width: 2.5rem;
+    border-radius: 100px;
+    border: 3px solid rgba(255, 255, 255, 0);
+}
+
+a.foto-perfil>img:hover, a.foto-perfil>img:focus {
+    cursor: pointer;
+    border: 3px solid white;
+    transition: 0.25s;
+}
+
+div.actions {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-family: sans-serif;
+}
+
+div.actions>p>a {
+    color: red;
+    cursor: pointer;
+}
+
+
 
 .banner {
     background-image: url(../../../public/banner.jpg);

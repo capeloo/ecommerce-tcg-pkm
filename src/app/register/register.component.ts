@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
       <main class="register-main">
         <form action="" class="register-form">
           <img 
-            src="" 
+            src="logo.png" 
             alt="logo"
             class="register-logo"
           > 
@@ -53,17 +53,7 @@ import { RouterModule } from '@angular/router';
               required
             >
           </section>
-<<<<<<< Updated upstream
-
-          <button type="submit" class="register-button">Cadastrar</button>
-
-          <p class="register-login">
-            Já possui cadastro? 
-            <a [routerLink]="['/']" class="register-login-link">Entre por aqui</a>
-          </p>
-=======
           <p>Já possui cadastro? <a [routerLink]="['/auth']">Entre por aqui</a></p>
->>>>>>> Stashed changes
         </form>
       </main>
     </body>

@@ -74,6 +74,7 @@ button.auth-button:hover {
 p.auth-register {
     font-size: 0.9rem;
     color: #333;
+    margin-top: 1rem;
 }
 
 a.auth-register-link {

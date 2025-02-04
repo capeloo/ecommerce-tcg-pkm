@@ -1,10 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Usuario } from '../../model/usuario';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [CommonModule],
   template: `
     <body>
       <header>
@@ -27,29 +29,23 @@ import { Router } from '@angular/router';
           >
         </div>
         <div>
+          <div class="dropdown" (click)="toggleDropdown()" *ngIf="!isUserLoggedOn">
+            <p class="dropdown-button">Olá, faça seu login ou cadastre-se  &#9660;</p>
+            <div class="dropdown-content" *ngIf="isDropdownOpen">
+              <a (click)="signInUsuario()">Entrar</a>
+              <p>ou</p>
+              <a (click)="registerUsuario()">cadastre-se</a>
+          </div>
+        </div>
+        <div class="actions" *ngIf="isUserLoggedOn">
+          <p>Olá, {{ this.usuario?.nome }}! <a (click)="signOutUsuario()">Sair</a></p>
           <!-- Perfil -->
-          <!--
-          <a (click)="goToProfile()">
+          <a class="foto-perfil" (click)="goToProfile()">
             <img 
-            src="" 
-            alt="Perfil"
+              src="foto-perfil.jpg" 
+              alt="foto-perfil"
             >
           </a>
-          -->
-          <div id="dropdown">
-            <p class="dropbtn">Olá, faça seu login ou cadastre-se</p>
-            <div class="dropdown-content">
-              <a (click)="signInUsuario()">Entrar</a>
-              <a (click)="registerUsuario()">cadastre-se</a>
-            </div>
-            <!--
-            
-            -->
-          </div>
-          
-          <!-- 
-          <a (click)="signOutUsuario()">Sair</a>
-          -->
           <!-- Carrinho -->
           <!--
           <img 
@@ -57,6 +53,8 @@ import { Router } from '@angular/router';
             alt="Carrinho"
           >
           -->
+        </div>
+
         </div>
       </header>
       <main>
@@ -106,18 +104,35 @@ import { Router } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  usuario?: Usuario;
 
   appService = inject(AppService);
+  
+  isDropdownOpen = false;
+  isUserLoggedOn = false;
 
-  constructor(private router: Router){}
+  constructor(private router: Router){
+    this.usuario = history.state.usuario;
+
+    if(this.usuario?.id){
+      this.isUserLoggedOn = true;
+    }
+  }
+
+  toggleDropdown(){
+    this.isDropdownOpen = !this.isDropdownOpen;
+    
+  }
 
   async signOutUsuario(){
-    const response = await this.appService.desconectarUsuario();
+    try {
+      const res = await this.appService.desconectarUsuario();
 
-    if(response){
-      this.router.navigate(['']);
-    } else {
-
+      if(res){
+        this.router.navigate(['/']);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 

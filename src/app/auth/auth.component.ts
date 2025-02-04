@@ -9,18 +9,11 @@ import { CommonModule } from '@angular/common';
   selector: 'app-auth',
   imports: [ReactiveFormsModule, CommonModule, RouterModule],
   template: `
-<<<<<<< Updated upstream
     <body class="auth-body">
       <main class="auth-main">
-        <form [formGroup]="authForm" (ngSubmit)="loginUsuario()" class="auth-form">
-=======
-    <body>
-      <main>
-        <form [formGroup]="authForm" (ngSubmit)="signInUsuario()">
-          <!-- Logo -->
->>>>>>> Stashed changes
+        <form [formGroup]="authForm" (ngSubmit)="signInUsuario()" class="auth-form">
           <img 
-            src="" 
+            src="logo.png" 
             alt="logo"
             class="auth-logo"
           > 
@@ -80,11 +73,7 @@ export class AuthComponent {
     senha: new FormControl(''),
   });
 
-<<<<<<< Updated upstream
-  async loginUsuario() {
-=======
   async signInUsuario(){
->>>>>>> Stashed changes
     try {
       const usuario = await this.appService.autenticarUsuario(
         this.authForm.value.email ?? '',
@@ -92,7 +81,7 @@ export class AuthComponent {
       );
 
       if (usuario?.id) {
-        this.router.navigate(['home']);
+        this.router.navigate(['/'], { state: { usuario } });
 
       } else {
         this.authError = 'Credenciais inválidas';

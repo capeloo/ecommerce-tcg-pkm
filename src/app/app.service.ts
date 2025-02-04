@@ -34,8 +34,21 @@ export class AppService {
         }
     } 
 
-    async desconectarUsuario(){
-        const data = await fetch(this.url + "signout");
-        return (await data.json());
+    async desconectarUsuario() {
+        try {
+            const response = await fetch(this.url + "signout", {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json', 
+                },
+            });
+
+            const data = await response.json();
+            return data.success;
+
+        } catch (error) {
+            console.error('Erro na autenticação:', error);
+            return null; 
+        }
     }
 }
