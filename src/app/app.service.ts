@@ -30,7 +30,7 @@ export class AppService {
         
         } catch (error) {
             console.error('Erro na autenticação:', error);
-            return null; 
+            return null;
         }
     } 
 
@@ -48,7 +48,31 @@ export class AppService {
 
         } catch (error) {
             console.error('Erro na autenticação:', error);
-            return null; 
+        }
+    }
+
+    async cadastrarUsuario(nome: string, email: string, senha: string) {
+
+        const data = {
+            nome: nome,
+            email: email,
+            senha: senha
+        }
+
+        try {
+            const response = await fetch(this.url + "register", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(data)
+            });
+
+            const result = await response.json();
+            return result.success;
+
+        } catch (error) {
+            console.error('Erro no cadastro', error);
         }
     }
 }

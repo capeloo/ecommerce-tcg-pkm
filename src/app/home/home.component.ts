@@ -3,10 +3,11 @@ import { AppService } from '../app.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../model/usuario';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   template: `
     <body>
       <header>
@@ -41,7 +42,7 @@ import { Usuario } from '../../model/usuario';
         <div class="actions" *ngIf="isUserLoggedOn">
           <p>Olá, {{ this.usuario?.nome }}! <a (click)="signOutUsuario()">Sair</a></p>
           <!-- Perfil -->
-          <a class="foto-perfil" (click)="goToProfile()">
+          <a class="foto-perfil" [routerLink]="['/profile', this.usuario?.id]">
             <img 
               src="foto-perfil.jpg" 
               alt="foto-perfil"
@@ -179,10 +180,6 @@ export class HomeComponent {
 
   async signInUsuario(){
     this.router.navigate(['auth']);
-  }
-
-  async goToProfile(){
-    this.router.navigate(['profile']);
   }
 
   async goToHome(){

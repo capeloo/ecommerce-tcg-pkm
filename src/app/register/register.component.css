@@ -92,3 +92,9 @@ a.register-login-link {
 a.register-login-link:hover {
     text-decoration: underline;
 }
+
+div.register-error {
+    color: #ff4d4d;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+}
