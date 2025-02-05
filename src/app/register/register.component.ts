@@ -53,6 +53,9 @@ import { RouterModule } from '@angular/router';
               required
             >
           </section>
+
+          <button type="submit" class="register-button">Cadastrar</button>
+
           <p>Já possui cadastro? <a [routerLink]="['/auth']">Entre por aqui</a></p>
         </form>
       </main>

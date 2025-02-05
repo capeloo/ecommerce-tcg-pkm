@@ -41,7 +41,7 @@ div#search-bar>input {
 }
 
 div#search-bar:hover, div#search-bar:focus {
-    border: 1px solid white;
+    border: 1.5px solid white;
 }
 
 div#search-bar>input:focus {
@@ -110,7 +110,6 @@ a.foto-perfil {
     width: 3rem;
     height: 2.65rem;
     padding: 0.5rem;
-    margin-right: 0.5rem;
     display: flex;
     justify-content: center;
 }
@@ -127,6 +126,24 @@ a.foto-perfil>img:hover, a.foto-perfil>img:focus {
     transition: 0.25s;
 }
 
+a.carrinho {
+    width: 1.1rem;
+    height: 1.1rem;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    background-color: var(--blue200);
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    border: 3px solid rgba(255, 255, 255, 0);
+}
+
+a.carrinho:hover, a.carrinho:focus {
+    cursor: pointer;
+    border: 3px solid white;
+    transition: 0.25s;
+}
+
 div.actions {
     display: flex;
     align-items: center;
@@ -135,12 +152,98 @@ div.actions {
 }
 
 div.actions>p>a {
-    color: red;
+    color: rgb(255, 99, 99);
     cursor: pointer;
 }
 
+.banner-container {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    
+  }
+  
+  .carousel-image {
+    width: 100%;
+    height: 60vh;
+    display: block;
+  }
+  
+  .controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+  }
+  
+  .prev-button {
+    color: white;
+    background-color: #ff583300;
+    border: none;
+    height: 56vh;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    margin-left: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0);
+  }
+
+  .next-button {
+    color: white;
+    background-color: #ff583300;
+    border: none;
+    height: 56vh;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    margin-right: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0);
+  }
+  
+  .prev-button:hover, .next-button:hover {
+    border: 1px solid white;
+  }
+
+  .indicators {
+    position: absolute;
+    top: 65vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    z-index: 2; 
+  }
+  
+  .indicator {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    margin: 0 5px;
+    border: 3px solid rgba(255, 255, 255, 0);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .indicator.active {
+    background-color: var(--blue500); 
+    border: 3px solid  white;
+  }
+  
+  .indicator:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
 
 
+
+/*
 .banner {
     background-image: url(../../../public/banner.jpg);
     background-size: cover;
@@ -148,6 +251,7 @@ div.actions>p>a {
     width: 100%;
     height: 60vh;
 }
+*/
 
 .tab-bar {
     background-color: var(--blue200);

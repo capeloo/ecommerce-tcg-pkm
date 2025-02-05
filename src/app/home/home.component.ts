@@ -28,6 +28,7 @@ import { Usuario } from '../../model/usuario';
             placeholder="  Pesquise um produto"
           >
         </div>
+        <!-- Actions -->
         <div>
           <div class="dropdown" (click)="toggleDropdown()" *ngIf="!isUserLoggedOn">
             <p class="dropdown-button">Olá, faça seu login ou cadastre-se  &#9660;</p>
@@ -47,19 +48,34 @@ import { Usuario } from '../../model/usuario';
             >
           </a>
           <!-- Carrinho -->
-          <!--
-          <img 
-            src="" 
-            alt="Carrinho"
-          >
-          -->
+           <a class="carrinho">
+            <img 
+              src="mochila.png" 
+              alt="Carrinho"
+            >
+           </a>
         </div>
 
         </div>
       </header>
       <main>
         <!-- Banner -->
-        <section class="banner"></section>
+        <section class="banner-container">
+          <div class="carousel">
+            <img [src]="images[currentIndex]" alt="banner" class="carousel-image">
+            <div class="controls">
+              <button (click)="prevImage()" class="prev-button"><</button>
+              <button (click)="nextImage()" class="next-button">></button>
+            </div>
+          </div>
+        </section>
+        <!-- Indicadores -->
+        <div class="indicators">
+          <span *ngFor="let image of images; let i = index" 
+          (click)="goToImage(i)" 
+          [class.active]="isActive(i)" 
+          class="indicator"></span>
+        </div>
         <!-- Tab bar -->
         <section>
           <div class="tab-bar">
@@ -104,12 +120,36 @@ import { Usuario } from '../../model/usuario';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  usuario?: Usuario;
+  usuario: Usuario | null;
 
   appService = inject(AppService);
   
   isDropdownOpen = false;
   isUserLoggedOn = false;
+
+  images = [
+    'stellar-crown.jpg',
+    'surging-sparks.jpg',
+    'prismatic-evolution.jpg'
+  ];
+
+  currentIndex = 0;
+
+  nextImage() {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+  }
+
+  prevImage() {
+    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+  }
+
+  goToImage(index: number) {
+    this.currentIndex = index;
+  }
+
+  isActive(index: number): boolean {
+    return this.currentIndex === index;
+  }
 
   constructor(private router: Router){
     this.usuario = history.state.usuario;
@@ -129,9 +169,10 @@ export class HomeComponent {
       const res = await this.appService.desconectarUsuario();
 
       if(res){
-        this.router.navigate(['/']);
-      }
-    } catch (error) {
+        this.usuario = null;
+        this.isUserLoggedOn = false;
+        this.router.navigate(['']);     
+    }} catch (error) {
       console.error(error);
     }
   }

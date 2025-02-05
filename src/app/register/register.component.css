@@ -67,6 +67,7 @@ button.register-button {
     padding: 12px;
     font-size: 1rem;
     border: none;
+    margin-bottom: 1rem;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
