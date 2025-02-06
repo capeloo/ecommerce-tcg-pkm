@@ -75,4 +75,54 @@ export class AppService {
             console.error('Erro no cadastro', error);
         }
     }
+
+    async consultarUsuarioPorId(id: string){
+
+        const data = {
+            id: id,
+        };
+
+        try {
+            const response = await fetch(this.url + "search", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(data)
+            });
+
+            const usuario: Usuario = await response.json();
+            return usuario;
+        } catch (error) {
+            console.error('Erro na consulta:', error);
+            return null;
+        }
+
+    }
+
+    async alterarDadosDoUsuario(id: string, nome: string, email: string, endereco: string){
+
+        const data = {
+            id: id,
+            nome: nome,
+            email: email,
+            endereco: endereco,
+        }
+
+        try {
+            const response = await fetch(this.url + "edit", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(data)
+            });
+
+            const result = await response.json();
+            return result.success;
+
+        } catch (error) {
+            console.error('Erro na edição', error);
+        }
+    }
 }

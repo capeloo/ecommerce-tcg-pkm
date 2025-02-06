@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { AppService } from '../app.service';
+import { Usuario } from '../../model/usuario';
 
 @Component({
   selector: 'app-profile',
@@ -9,25 +11,38 @@ import { ActivatedRoute } from '@angular/router';
   template: `
     <body>
       <main>
-          <div>
-            <h1>Meu Perfil</h1>
-            <button>
-              <img 
-                (click)="enableEdition()"
-                src="editar.png" 
-                alt="Editar"
-              >
-            </button>
-          </div>
-        <form>
+        <div>
+          <h1>Meu Perfil</h1>
+          <button>
+            <img 
+              (click)="enableEdition()"
+              src="editar.png" 
+              alt="Editar"
+            >
+          </button>
+        </div>
+
+        <div *ngIf="profileError" class="register-error">
+          <p>{{ profileError }}</p>
+        </div>
+
+        <form [formGroup]="profileForm" (ngSubmit)="saveEdition()">
           <section class="profile-input-section">
+            <input 
+              type="text"
+              name="id"
+              id="id"
+              formControlName="id"
+              class="profile-input"
+              hidden
+            >
+
             <label for="nome">Nome</label>
             <input 
               type="text"
               name="nome"
               id="nome"
               formControlName="nome"
-              value={{this.usuario.nome}}
               class="profile-input"
               [readonly]="isReadOnly"
             >
@@ -38,7 +53,6 @@ import { ActivatedRoute } from '@angular/router';
               name="email"
               id="email"
               formControlName="email"
-              value={{this.usuario.email}}
               class="profile-input"
               [readonly]="isReadOnly"
             >
@@ -49,7 +63,6 @@ import { ActivatedRoute } from '@angular/router';
               name="endereco"
               id="endereco"
               formControlName="endereco"
-              value={{this.usuario.endereco}}
               class="profile-input"
               [readonly]="isReadOnly"
             >
@@ -62,23 +75,66 @@ import { ActivatedRoute } from '@angular/router';
   `,
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
+  usuario: Usuario | null = null;
+  profileError: string = '';
   isReadOnly: boolean = true;
+  appService = inject(AppService);
 
-  constructor (private route: ActivatedRoute){
-    const userId = parseInt(this.route.snapshot.params['id']);
-    console.log(userId);
+  constructor (private route: ActivatedRoute, private router: Router){}
+
+  ngOnInit(): void {
+    this.consultarUsuario();
   }
-  
-  usuario = {
-    nome: "Caio Capêlo",
-    email: "caiocapelo2@hotmail.com",
-    endereco: "Avenida Mister Hull, 2992",
+
+  async consultarUsuario(){
+    try {
+      const usuario = await this.appService.consultarUsuarioPorId(this.route.snapshot.params['id']);
+
+      if(usuario?.id){
+        this.usuario = usuario;
+
+        this.profileForm.patchValue({
+          id: usuario.id.toString(),
+          nome: usuario.nome,
+          email: usuario.email,
+          endereco: usuario.endereco
+        });
+      } else {
+        window.alert('Houve um erro na consulta. Por favor, tente novamente');
+        this.router.navigate(['/']);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   enableEdition() {
     this.isReadOnly = false;
   }
 
+  profileForm = new FormGroup({
+    id: new FormControl(''),
+    nome: new FormControl(''),
+    email: new FormControl(''),
+    endereco: new FormControl(''),
+  });
+
+  async saveEdition() {
+      const res = await this.appService.alterarDadosDoUsuario(
+        this.profileForm.value.id ?? '',
+        this.profileForm.value.nome ?? '',
+        this.profileForm.value.email ?? '',
+        this.profileForm.value.endereco ?? '',
+      );
+
+      if(res){
+        window.alert('Edição realizada com sucesso!');
+        this.router.navigate(['/profile', this.usuario?.id]);
+      } else {
+        this.profileError = "Houve algum erro na edição. Por favor, tente novamente.";
+      }
+    }
 
 }
