@@ -70,6 +70,9 @@ import { Usuario } from '../../model/usuario';
 
           <button type="submit" *ngIf="isReadOnly == false">Salvar</button>
         </form>
+
+        <a (click)="deleteAccount()">Remover conta</a>
+
       </main>
     </body>
   `,
@@ -130,6 +133,7 @@ export class ProfileComponent implements OnInit {
       );
 
       if(res){
+        this.isReadOnly = true;
         window.alert('Edição realizada com sucesso!');
         this.router.navigate(['/profile', this.usuario?.id]);
       } else {
@@ -137,4 +141,14 @@ export class ProfileComponent implements OnInit {
       }
     }
 
+  async deleteAccount () {
+      const res = await this.appService.removerUsuario(this.route.snapshot.params['id']);
+
+      if(res){
+        window.alert('Conta removida com sucesso!');
+        this.router.navigate(['/']);
+      } else {
+        this.profileError = "Houve algum erro na exclusão da conta.";
+      }
+  }
 }

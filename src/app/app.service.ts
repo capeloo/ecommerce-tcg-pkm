@@ -125,4 +125,27 @@ export class AppService {
             console.error('Erro na edição', error);
         }
     }
+
+    async removerUsuario(id: string) {
+
+        const data = {
+            id: id,
+        }
+
+        try {
+            const response = await fetch(this.url + "delete", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(data)
+            });
+
+            const result = await response.json();
+            return result.success;
+
+        } catch (error) {
+            console.error('Erro no cadastro', error);
+        }
+    }
 }
