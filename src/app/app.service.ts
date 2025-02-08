@@ -22,7 +22,8 @@ export class AppService {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams(data)
+                body: new URLSearchParams(data),
+                credentials: 'include'
             });  
 
         const usuario: Usuario = await response.json();
@@ -41,6 +42,7 @@ export class AppService {
                 headers: {
                     'Content-Type': 'application/json', 
                 },
+                credentials: 'include'
             });
 
             const data = await response.json();
@@ -88,6 +90,7 @@ export class AppService {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
+                credentials: 'include',
                 body: new URLSearchParams(data)
             });
 
