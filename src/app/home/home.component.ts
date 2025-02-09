@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../model/usuario';
 import { RouterModule } from '@angular/router';
@@ -120,8 +120,9 @@ import { RouterModule } from '@angular/router';
   `,
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
-  usuario: Usuario | null;
+export class HomeComponent implements OnInit {
+  usuario: Usuario | null = null;
+  userID: string = '';
 
   appService = inject(AppService);
   
@@ -152,11 +153,29 @@ export class HomeComponent {
     return this.currentIndex === index;
   }
 
-  constructor(private router: Router){
-    this.usuario = history.state.usuario;
+  constructor(private router: Router, private route: ActivatedRoute){}
+  
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.userID = params['id'];
+    });
 
-    if(this.usuario?.id){
-      this.isUserLoggedOn = true;
+    const res = this.consultarUsuario(this.userID);
+
+  }
+
+  async consultarUsuario(id: string){
+    try {
+      const usuario = await this.appService.consultarUsuarioPorId(id);
+
+      if(usuario?.id){
+        this.usuario = usuario;
+        this.isUserLoggedOn = true;
+
+      } 
+
+    } catch (error) {
+      console.log(error);
     }
   }
 

@@ -12,6 +12,14 @@ import { Usuario } from '../../model/usuario';
     <body>
       <main>
         <div>
+          <a (click)="goBackToHome()">
+            <img 
+              src="logo.png" 
+              alt="Logo"
+              id="logo"
+            > 
+          </a>
+          
           <h1>Meu Perfil</h1>
           <button>
             <img 
@@ -79,6 +87,7 @@ import { Usuario } from '../../model/usuario';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit {
+
   usuario: Usuario | null = null;
   profileError: string = '';
   isReadOnly: boolean = true;
@@ -88,6 +97,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.consultarUsuario();
+  }
+
+  goBackToHome() {
+    this.router.navigate([''], { queryParams: { id: this.usuario?.id } });
   }
 
   async consultarUsuario(){

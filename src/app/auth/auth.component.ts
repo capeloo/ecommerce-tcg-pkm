@@ -80,8 +80,11 @@ export class AuthComponent {
         this.authForm.value.senha ?? '',
       );
 
-      if (usuario?.id) {
-        this.router.navigate(['/'], { state: { usuario } });
+      if (usuario?.id && !usuario.administrador) {
+        this.router.navigate([''], { queryParams: { id: usuario.id } });
+
+      } else if (usuario?.id && usuario.administrador) {
+        this.router.navigate(['admin']);
 
       } else {
         this.authError = 'Credenciais inválidas';

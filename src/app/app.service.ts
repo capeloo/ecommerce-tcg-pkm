@@ -118,6 +118,7 @@ export class AppService {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
+                credentials: "include",
                 body: new URLSearchParams(data)
             });
 
@@ -141,6 +142,7 @@ export class AppService {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
+                credentials: "include",
                 body: new URLSearchParams(data)
             });
 
