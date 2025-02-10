@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Usuario } from "../model/usuario";
+import { Produto } from "../model/produto";
+import { Categoria } from "../model/categoria";
 
 @Injectable({
     providedIn: 'root'
@@ -151,6 +153,257 @@ export class AppService {
 
         } catch (error) {
             console.error('Erro no cadastro', error);
+        }
+    }
+
+    async buscarProdutosEmEstoque(){
+        try {
+            const response = await fetch(this.url + "stock", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            });
+
+            const produtos: Produto[] = await response.json();
+            return produtos;
+        } catch (error) {
+            console.error('Erro ao trazer produtos:', error);
+            return null;
+        }
+    }
+
+    async buscarProdutos(){
+        try {
+            const response = await fetch(this.url + "listprod", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            });
+
+            const produtos: Produto[] = await response.json();
+            return produtos;
+        } catch (error) {
+            console.error('Erro ao trazer produtos:', error);
+            return null;
+        }
+    }
+
+    async inserirProduto(id_expansao: string, id_categoria: string, descricao: string, preco: string, foto: string, quantidade: string) {
+
+        const data = {
+            id_expansao: id_expansao,
+            id_categoria: id_categoria,
+            descricao: descricao,
+            preco: preco,
+            foto: foto,
+            quantidade: quantidade,
+        }
+
+        try {
+            const response = await fetch(this.url + "addprod", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                credentials: 'include',
+                body: new URLSearchParams(data)
+            });
+
+            const result = await response.json();
+            return result.success;
+
+        } catch (error) {
+            console.error('Erro ao inserir produto', error);
+        }
+    }
+
+    async editarProduto(id: string, id_expansao: string, id_categoria: string, descricao: string, preco: string, foto: string, quantidade: string) {
+
+        const data = {
+            id: id,
+            id_expansao: id_expansao,
+            id_categoria: id_categoria,
+            descricao: descricao,
+            preco: preco,
+            foto: foto,
+            quantidade: quantidade,
+        }
+
+        try {
+            const response = await fetch(this.url + "editprod", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                credentials: 'include',
+                body: new URLSearchParams(data)
+            });
+
+            const result = await response.json();
+            return result.success;
+
+        } catch (error) {
+            console.error('Erro ao editar produto', error);
+        }
+    }
+
+    async obterProdutoPorId(id: string){
+        const data = {
+            id: id,
+        };
+
+        try {
+            const response = await fetch(this.url + "searchprod", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(data)
+            });
+
+            const produto: Produto = await response.json();
+            return produto;
+        } catch (error) {
+            console.error('Erro na consulta:', error);
+            return null;
+        }
+    }
+
+    async removerProduto(id: string) {
+
+        const data = {
+            id: id,
+        }
+
+        try {
+            const response = await fetch(this.url + "deleteprod", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                credentials: "include",
+                body: new URLSearchParams(data)
+            });
+
+            const result = await response.json();
+            return result.success;
+
+        } catch (error) {
+            console.error('Erro ao deletar', error);
+        }
+    }
+
+    async buscarCategorias(){
+        try {
+            const response = await fetch(this.url + "listcat", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            });
+
+            const categorias: Categoria[] = await response.json();
+            return categorias;
+        } catch (error) {
+            console.error('Erro ao trazer categorias:', error);
+            return null;
+        }
+    }
+
+    async removerCategoria(id: string) {
+
+        const data = {
+            id: id,
+        }
+
+        try {
+            const response = await fetch(this.url + "deletecat", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                credentials: "include",
+                body: new URLSearchParams(data)
+            });
+
+            const result = await response.json();
+            return result.success;
+
+        } catch (error) {
+            console.error('Erro ao deletar', error);
+        }
+    }
+
+    async inserirCategoria(nome: string) {
+
+        const data = {
+            nome: nome,
+        }
+
+        try {
+            const response = await fetch(this.url + "addcat", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                credentials: 'include',
+                body: new URLSearchParams(data)
+            });
+
+            const result = await response.json();
+            return result.success;
+
+        } catch (error) {
+            console.error('Erro ao inserir produto', error);
+        }
+    }
+
+    async obterCategoriaPorId(id: string){
+        const data = {
+            id: id,
+        };
+
+        try {
+            const response = await fetch(this.url + "searchcat", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(data)
+            });
+
+            const categoria: Categoria = await response.json();
+            return categoria;
+        } catch (error) {
+            console.error('Erro na consulta:', error);
+            return null;
+        }
+    }
+
+    async editarCategoria(id: string, nome: string) {
+
+        const data = {
+            id: id,
+            nome: nome,
+        }
+
+        try {
+            const response = await fetch(this.url + "editcat", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                credentials: 'include',
+                body: new URLSearchParams(data)
+            });
+
+            const result = await response.json();
+            return result.success;
+
+        } catch (error) {
+            console.error('Erro ao editar categoria', error);
         }
     }
 }

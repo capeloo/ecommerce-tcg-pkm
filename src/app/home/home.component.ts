@@ -49,12 +49,14 @@ import { RouterModule } from '@angular/router';
             >
           </a>
           <!-- Carrinho -->
-           <a class="carrinho">
+          <!--
+          <a class="carrinho">
             <img 
               src="mochila.png" 
               alt="Carrinho"
             >
-           </a>
+          </a>
+          -->
         </div>
 
         </div>
@@ -171,9 +173,8 @@ export class HomeComponent implements OnInit {
       if(usuario?.id){
         this.usuario = usuario;
         this.isUserLoggedOn = true;
-
       } 
-
+      
     } catch (error) {
       console.log(error);
     }
