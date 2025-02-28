@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../model/usuario';
 import { RouterModule } from '@angular/router';
+import { Produto } from '../../model/produto';
 
 @Component({
   selector: 'app-home',
@@ -95,6 +96,20 @@ import { RouterModule } from '@angular/router';
         <!-- Carrossel 01 -->
         <section class="carousel1">
           <h1>Lançamento - Expansão Fagulhas Impetuosas</h1>
+          <div class="carousel1-content">
+            <button (click)="handlePrev()" [disabled]="startIndex === 0">
+              <
+            </button>
+            <div *ngFor="let product of displayedProducts">
+              <div class="carousel1-card" [routerLink]="['/product-page', product.id]">
+                <img src="{{ product.foto }}" [alt]="product.descricao">
+                <p>{{ product.descricao }}</p>
+              </div>          
+            </div>
+            <button (click)="handleNext()" [disabled]="startIndex + 5 >= products.length">
+              >
+            </button>
+          </div>
         </section>
         <!-- Carrossel 02 -->
         <section class="carousel2">
@@ -125,6 +140,10 @@ import { RouterModule } from '@angular/router';
 export class HomeComponent implements OnInit {
   usuario: Usuario | null = null;
   userID: string = '';
+
+  products: Produto[] = [];
+  startIndex = 0;
+  itemsPerPage = 5;
 
   appService = inject(AppService);
   
@@ -164,6 +183,27 @@ export class HomeComponent implements OnInit {
 
     const res = this.consultarUsuario(this.userID);
 
+    this.appService.buscarProdutos().then(prods => {
+      if(prods){
+        this.products = prods;
+      }
+    });
+  }
+
+  get displayedProducts(){
+    return this.products.slice(this.startIndex, this.startIndex + this.itemsPerPage);
+  }
+
+  handleNext() {
+    if (this.startIndex + 1 < this.products.length) {
+      this.startIndex += 1;
+    }
+  }
+
+  handlePrev() {
+    if (this.startIndex - 1 >= 0) {
+      this.startIndex -= 1;
+    }
   }
 
   async consultarUsuario(id: string){

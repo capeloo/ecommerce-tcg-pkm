@@ -10,6 +10,7 @@ import { AddprodComponent } from './product/addprod/addprod.component';
 import { EditprodComponent } from './product/editprod/editprod.component';
 import { AddcatComponent } from './category/addcat/addcat.component';
 import { EditcatComponent } from './category/editcat/editcat.component';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 export const routes: Routes = [
     {
@@ -40,6 +41,11 @@ export const routes: Routes = [
     {
         path: 'product',
         component: ProductComponent,
+    },
+
+    {
+        path: 'product-page/:id',
+        component: ProductPageComponent,
     },
 
     {

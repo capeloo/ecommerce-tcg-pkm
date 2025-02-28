@@ -37,6 +37,35 @@ export class AppService {
         }
     } 
 
+    async adicionarProdutoNaPokebag(produtoId: string, quantidade: string){
+
+        const data = {
+            produtoId: produtoId,
+            quantidade: quantidade,
+        };
+
+        try {
+            const response = await fetch(this.url + "addprodbag", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(data),
+                credentials: 'include'
+            });  
+
+            if (!response.ok) {
+                throw new Error(`Erro ao adicionar produto: ${response.statusText}`);
+            }
+    
+            return true;
+        
+        } catch (error) {
+            console.error("Erro ao adicionar produto à Pokébag:", error);
+            return false;
+        }
+    } 
+
     async desconectarUsuario() {
         try {
             const response = await fetch(this.url + "signout", {

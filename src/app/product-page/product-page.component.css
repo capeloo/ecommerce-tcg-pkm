@@ -1,0 +1,89 @@
+main {
+    background-color: white;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-content {
+    width: 600px;
+    height: 400px;
+    background-color: var(--blue100);
+    display: flex;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.form-content>img {
+    width: 200px;
+    height: 270px;
+    padding-right: 2rem;
+}
+
+.form-content>div {
+    height: 270px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.form-content>div>p {
+    font-family: sans-serif;
+    font-size: 1.5rem;
+}
+
+.form-content>div>button {
+    width: 200px;
+    height: 50px;
+    background-color: var(--blue500);
+    color: white;
+    font-family: sans-serif;
+    font-size: 1rem;
+    border: 0;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.form-content>div>button:hover {
+    cursor: pointer;
+    transform: scale(105%);
+    transition: 0.25s;
+}
+
+#btn1 {
+    width: 30px;
+    height: 40px;
+    font-family: sans-serif;
+    font-size: 1rem;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.258);
+    border-radius: 6px 0px 0px 6px;
+}
+
+#btn2 {
+    width: 30px;
+    height: 40px;
+    font-family: sans-serif;
+    font-size: 1rem;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.258);
+    border-radius: 0px 6px 06px 0px;
+}
+
+.quantity-selector>button:hover {
+    cursor: pointer;
+}
+
+.quantity-selector>input {
+    width: 30px;
+    height: 39px;
+    font-family: sans-serif;
+    font-size: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.258);
+    padding-left: 20px;
+}
