@@ -48,6 +48,11 @@ div#search-bar>input:focus {
     outline: none;
 }
 
+div.actions {
+    display: flex;
+    flex-direction: row;
+}
+
 
 div.dropdown  {
     width: 11vw;

@@ -31,16 +31,17 @@ import { Produto } from '../../model/produto';
           >
         </div>
         <!-- Actions -->
-        <div>
+        <div class="actions">
           <div class="dropdown" (click)="toggleDropdown()" *ngIf="!isUserLoggedOn">
             <p class="dropdown-button">Olá, faça seu login ou cadastre-se  &#9660;</p>
             <div class="dropdown-content" *ngIf="isDropdownOpen">
               <a (click)="signInUsuario()">Entrar</a>
               <p>ou</p>
               <a (click)="registerUsuario()">cadastre-se</a>
+            </div>
           </div>
-        </div>
-        <div class="actions" *ngIf="isUserLoggedOn">
+        
+          <div class="actions" *ngIf="isUserLoggedOn">
           <p>Olá, {{ this.usuario?.nome }}! <a (click)="signOutUsuario()">Sair</a></p>
           <!-- Perfil -->
           <a class="foto-perfil" [routerLink]="['/profile', this.usuario?.id]">
@@ -50,16 +51,21 @@ import { Produto } from '../../model/produto';
             >
           </a>
           <!-- Carrinho -->
-          <!--
           <a class="carrinho">
             <img 
               src="mochila.png" 
               alt="Carrinho"
             >
           </a>
-          -->
-        </div>
+          </div>
 
+          <!-- Carrinho -->
+          <a class="carrinho" [routerLink]="['pokebag']">
+            <img 
+              src="mochila.png" 
+              alt="Carrinho"
+            >
+          </a>
         </div>
       </header>
       <main>

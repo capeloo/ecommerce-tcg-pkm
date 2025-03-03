@@ -11,6 +11,7 @@ import { EditprodComponent } from './product/editprod/editprod.component';
 import { AddcatComponent } from './category/addcat/addcat.component';
 import { EditcatComponent } from './category/editcat/editcat.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { PokebagPageComponent } from './pokebag-page/pokebag-page.component';
 
 export const routes: Routes = [
     {
@@ -71,5 +72,10 @@ export const routes: Routes = [
     {
         path: 'editcat/:id',
         component: EditcatComponent,
+    },
+
+    {
+        path: 'pokebag',
+        component: PokebagPageComponent,
     },
 ];

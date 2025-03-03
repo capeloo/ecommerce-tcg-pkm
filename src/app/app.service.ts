@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Usuario } from "../model/usuario";
 import { Produto } from "../model/produto";
 import { Categoria } from "../model/categoria";
+import { PokebagItem } from "../model/pokebagItem";
 
 @Injectable({
     providedIn: 'root'
@@ -65,6 +66,52 @@ export class AppService {
             return false;
         }
     } 
+
+    async removerProdutoNaPokebag(produtoId: string){
+
+        const data = {
+            produtoId: produtoId,
+        };
+
+        try {
+            const response = await fetch(this.url + "removeprodbag", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(data),
+                credentials: 'include'
+            });  
+
+            if (!response.ok) {
+                throw new Error(`Erro ao adicionar produto: ${response.statusText}`);
+            }
+    
+            return true;
+        
+        } catch (error) {
+            console.error("Erro ao remover produto da Pokébag:", error);
+            return false;
+        }
+    } 
+
+    async obterPokebagItems() {
+        try {
+            const response = await fetch(this.url + "listproducts", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                credentials: 'include',
+            });
+
+            const items: PokebagItem[] = await response.json();
+            return items;
+        } catch (error) {
+            console.error('Erro ao trazer items:', error);
+            return null;
+        }
+    }
 
     async desconectarUsuario() {
         try {
