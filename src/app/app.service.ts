@@ -256,6 +256,30 @@ export class AppService {
         }
     }
 
+    async removerVendaPorID(id: string) {
+
+        const data = {
+            id: id,
+        }
+
+        try {
+            const response = await fetch(this.url + "deletesale", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                credentials: "include",
+                body: new URLSearchParams(data)
+            });
+
+            const result = await response.json();
+            return result.success;
+
+        } catch (error) {
+            console.error('Erro ao remover venda', error);
+        }
+    }
+
     async buscarProdutosEmEstoque(){
         try {
             const response = await fetch(this.url + "stock", {
@@ -269,6 +293,23 @@ export class AppService {
             return produtos;
         } catch (error) {
             console.error('Erro ao trazer produtos:', error);
+            return null;
+        }
+    }
+
+    async buscarVendas(){
+        try {
+            const response = await fetch(this.url + "sales", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            });
+
+            const vendas: Venda[] = await response.json();
+            return vendas;
+        } catch (error) {
+            console.error('Erro ao trazer vendas:', error);
             return null;
         }
     }

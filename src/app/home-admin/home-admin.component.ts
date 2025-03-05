@@ -15,7 +15,9 @@ import { CommonModule } from '@angular/common';
       <div>
         <a [routerLink]="['/product']">Produtos</a>
         <a [routerLink]="['/category']">Categorias</a>
+        <a [routerLink]="['/sales']" >Vendas</a>
       </div>
+      <h1>Produtos em estoque</h1>
       <table>
       <thead>
           <tr>

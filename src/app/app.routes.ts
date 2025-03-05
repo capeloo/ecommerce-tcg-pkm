@@ -13,6 +13,7 @@ import { EditcatComponent } from './category/editcat/editcat.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { PokebagPageComponent } from './pokebag-page/pokebag-page.component';
 import { PurchasesPageComponent } from './purchases-page/purchases-page.component';
+import { SalesPageComponent } from './sales-page/sales-page.component';
 
 export const routes: Routes = [
     {
@@ -83,5 +84,10 @@ export const routes: Routes = [
     {
         path: 'purchases/:id',
         component: PurchasesPageComponent,
+    },
+
+    {
+        path: 'sales',
+        component: SalesPageComponent,
     },
 ];

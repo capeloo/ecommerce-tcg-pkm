@@ -116,7 +116,7 @@ export class PokebagPageComponent implements OnInit {
 
     if(res){
       window.alert('Venda realizada com sucesso!');
-      this.router.navigate(['/']);
+      this.router.navigate(['/'], { queryParams: { id: this.id } });
     } else {
       this.vendaError = "Houve algum erro na venda. Por favor, tente novamente.";
     }
