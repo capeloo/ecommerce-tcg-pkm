@@ -2,12 +2,24 @@ import { Component, inject, OnInit } from '@angular/core';
 import { PokebagItem } from '../../model/pokebagItem';
 import { AppService } from '../app.service';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-pokebag-page',
   imports: [CommonModule],
   template: `
     <body>
+      <div *ngIf="vendaError">
+        <p>{{ vendaError }}</p>
+      </div>
+      <a (click)="goBackToHome()">
+        <img 
+          src="logo.png" 
+          alt="Logo"
+          id="logo"
+        > 
+      </a>
+
       <h1>Minha Pokébag</h1>
       <main>  
       <table class="product-list">
@@ -45,7 +57,7 @@ import { CommonModule } from '@angular/common';
             <p>Total:</p>
             <h3>{{ total | currency }}</h3>
           </div>
-          <button>Realizar compra</button>
+          <button (click)="realizarCompra()">Realizar compra</button>
         </div>
       </main>
     </body>
@@ -55,12 +67,20 @@ import { CommonModule } from '@angular/common';
 export class PokebagPageComponent implements OnInit {
   items: PokebagItem[] = [];
   total: number = 0;
+  vendaError: string = '';
+  id: string | null = null;
 
   appService = inject(AppService);
 
   ngOnInit(): void {
     this.buscarItems();
+
+    this.route.queryParams.subscribe(params => {
+      this.id = params['id']; 
+    });
   }
+
+  constructor(private router: Router, private route: ActivatedRoute){}
 
   async buscarItems(){
     try {
@@ -90,5 +110,24 @@ export class PokebagPageComponent implements OnInit {
       console.log(error);
     }
   }
+
+  async realizarCompra(){
+    const res = await this.appService.finalizarVenda();
+
+    if(res){
+      window.alert('Venda realizada com sucesso!');
+      this.router.navigate(['/']);
+    } else {
+      this.vendaError = "Houve algum erro na venda. Por favor, tente novamente.";
+    }
+  }
+
+  goBackToHome() {
+    if (this.id) {
+      this.router.navigate(['/'], { queryParams: { id: this.id } });
+    } else {
+      this.router.navigate(['/']);
+  }
+}
 
 }

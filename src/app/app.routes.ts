@@ -12,6 +12,7 @@ import { AddcatComponent } from './category/addcat/addcat.component';
 import { EditcatComponent } from './category/editcat/editcat.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { PokebagPageComponent } from './pokebag-page/pokebag-page.component';
+import { PurchasesPageComponent } from './purchases-page/purchases-page.component';
 
 export const routes: Routes = [
     {
@@ -77,5 +78,10 @@ export const routes: Routes = [
     {
         path: 'pokebag',
         component: PokebagPageComponent,
+    },
+
+    {
+        path: 'purchases/:id',
+        component: PurchasesPageComponent,
     },
 ];

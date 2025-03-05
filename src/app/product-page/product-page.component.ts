@@ -11,6 +11,13 @@ import { CommonModule } from '@angular/common';
   template: `
     <body>
       <main>
+      <a (click)="goBackToHome()">
+        <img 
+          src="logo.png" 
+          alt="Logo"
+          id="logo"
+        > 
+      </a>
         <form [formGroup]="pokebagItemForm" (ngSubmit)="addProductToPokebag()" class="form-content">
           <img src="{{ product?.foto }}" [alt]="product?.descricao">
           <div>
@@ -35,8 +42,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './product-page.component.css'
 })
 export class ProductPageComponent implements OnInit {
+
   product: Produto | null = null;
   quantity: number = 1;
+  id: string | null = null;
 
   appService = inject(AppService);
 
@@ -49,6 +58,12 @@ export class ProductPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.consultarProduto();
+
+    this.route.queryParams.subscribe(params => {
+      this.id = params['id']; 
+    });
+
+    console.log(this.id);
   }
 
   async addProductToPokebag() {
@@ -60,7 +75,11 @@ export class ProductPageComponent implements OnInit {
 
     if(res){
       window.alert('Item adicionado à pokébag com sucesso!');
-      this.router.navigate(['']);
+      if (this.id) {
+        this.router.navigate(['/'], { queryParams: { id: this.id } });
+      } else {
+        this.router.navigate(['/']);
+    }
     } else {
       window.alert('Houve algum erro. Por favor, tente novamente');
     }
@@ -90,6 +109,14 @@ export class ProductPageComponent implements OnInit {
   decreaseQuantity() {
     if (this.quantity > 1) {
       this.quantity--;
+    }
+  }
+
+  goBackToHome() {
+    if (this.id) {
+      this.router.navigate(['/'], { queryParams: { id: this.id } });
+    } else {
+      this.router.navigate(['/']);
     }
   }
 }

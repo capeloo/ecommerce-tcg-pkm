@@ -50,17 +50,17 @@ import { Produto } from '../../model/produto';
               alt="foto-perfil"
             >
           </a>
-          <!-- Carrinho -->
-          <a class="carrinho">
+          <!-- Compras -->
+          <a class="compras" [routerLink]="['/purchases', this.usuario?.id]" [queryParams]="{id: this.usuario?.id}">
             <img 
-              src="mochila.png" 
-              alt="Carrinho"
+              src="payments.png" 
+              alt="foto-compras"
             >
           </a>
           </div>
 
           <!-- Carrinho -->
-          <a class="carrinho" [routerLink]="['pokebag']">
+          <a class="carrinho" (click)="goToPokebag()">
             <img 
               src="mochila.png" 
               alt="Carrinho"
@@ -107,7 +107,7 @@ import { Produto } from '../../model/produto';
               <
             </button>
             <div *ngFor="let product of displayedProducts">
-              <div class="carousel1-card" [routerLink]="['/product-page', product.id]">
+              <div class="carousel1-card" [routerLink]="['/product-page', product.id]" [queryParams]="{id: this.usuario?.id}">
                 <img src="{{ product.foto }}" [alt]="product.descricao">
                 <p>{{ product.descricao }}</p>
               </div>          
@@ -144,6 +144,7 @@ import { Produto } from '../../model/produto';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+
   usuario: Usuario | null = null;
   userID: string = '';
 
@@ -255,4 +256,9 @@ export class HomeComponent implements OnInit {
   async registerUsuario(){
     this.router.navigate(['register']);
   }
+
+  goToPokebag() {
+    this.router.navigate(['/pokebag'], { queryParams: { id: this.usuario?.id } });
+  }
+
 }

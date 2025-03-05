@@ -3,6 +3,7 @@ import { Usuario } from "../model/usuario";
 import { Produto } from "../model/produto";
 import { Categoria } from "../model/categoria";
 import { PokebagItem } from "../model/pokebagItem";
+import { Venda } from "../model/venda";
 
 @Injectable({
     providedIn: 'root'
@@ -109,6 +110,29 @@ export class AppService {
             return items;
         } catch (error) {
             console.error('Erro ao trazer items:', error);
+            return null;
+        }
+    }
+
+    async obterComprasDoCliente(usuario_id: string) {
+        const data = {
+            id: usuario_id,
+        };
+
+        try {
+            const response = await fetch(this.url + "purchases", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                credentials: 'include',
+                body: new URLSearchParams(data),
+            });
+
+            const compras: Venda[] = await response.json();
+            return compras;
+        } catch (error) {
+            console.error('Erro ao trazer compras:', error);
             return null;
         }
     }
@@ -480,6 +504,25 @@ export class AppService {
 
         } catch (error) {
             console.error('Erro ao editar categoria', error);
+        }
+    }
+
+    async finalizarVenda(){
+
+        try {
+            const response = await fetch(this.url + "sell", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                credentials: "include",
+            });
+
+            const result = await response.json();
+            return result.success;
+
+        } catch (error) {
+            console.error('Erro na finalização da venda', error);
         }
     }
 }
