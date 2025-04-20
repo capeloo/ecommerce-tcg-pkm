@@ -3,12 +3,14 @@ import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from '../app.service';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from "../header/header.component";
 
 @Component({
   selector: 'app-register',
-  imports: [RouterModule, ReactiveFormsModule, CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule, HeaderComponent],
   template: `
-    <body class="register-body">
+    <app-header></app-header>
+    <body class="register-body">  
       <main class="register-main">
         <form [formGroup]="registerForm" (ngSubmit)="registerUsuario()" class="register-form">
           <img 

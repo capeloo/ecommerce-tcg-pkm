@@ -1,102 +1,44 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../model/usuario';
 import { RouterModule } from '@angular/router';
 import { Produto } from '../../model/produto';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, HeaderComponent],
   template: `
     <body>
-      <header>
-        <!-- Logo -->
-        <img 
-          src="logo.png" 
-          alt="Logo"
-          id="logo"
-        > 
-        <!-- Search bar -->
-        <div  id="search-bar">
-          <img 
-            id="lupa"
-            src="lupa.png" 
-            alt="Lupa"
-          >
-          <input 
-            type="text" 
-            placeholder="  Pesquise um produto"
-          >
-        </div>
-        <!-- Actions -->
-        <div class="actions">
-          <div class="dropdown" (click)="toggleDropdown()" *ngIf="!isUserLoggedOn">
-            <p class="dropdown-button">Olá, faça seu login ou cadastre-se  &#9660;</p>
-            <div class="dropdown-content" *ngIf="isDropdownOpen">
-              <a (click)="signInUsuario()">Entrar</a>
-              <p>ou</p>
-              <a (click)="registerUsuario()">cadastre-se</a>
-            </div>
-          </div>
-        
-          <div class="actions" *ngIf="isUserLoggedOn">
-          <p>Olá, {{ this.usuario?.nome }}! <a (click)="signOutUsuario()">Sair</a></p>
-          <!-- Perfil -->
-          <a class="foto-perfil" [routerLink]="['/profile', this.usuario?.id]">
-            <img 
-              src="foto-perfil.jpg" 
-              alt="foto-perfil"
-            >
-          </a>
-          <!-- Compras -->
-          <a class="compras" [routerLink]="['/purchases', this.usuario?.id]" [queryParams]="{id: this.usuario?.id}">
-            <img 
-              src="payments.png" 
-              alt="foto-compras"
-            >
-          </a>
-          </div>
-
-          <!-- Carrinho -->
-          <a class="carrinho" (click)="goToPokebag()">
-            <img 
-              src="mochila.png" 
-              alt="Carrinho"
-            >
-          </a>
-        </div>
-      </header>
+      <app-header></app-header>
       <main>
         <!-- Banner -->
         <section class="banner-container">
           <div class="carousel">
-            <img [src]="images[currentIndex]" alt="banner" class="carousel-image">
+            <div class="carousel-inner">
+              <img *ngFor="let image of images; let i = index" 
+                [src]="image" 
+                [alt]="'banner ' + i" 
+                class="carousel-image"
+                [class.active]="currentIndex === i"
+              >
+            </div>
             <div class="controls">
               <button (click)="prevImage()" class="prev-button"><</button>
               <button (click)="nextImage()" class="next-button">></button>
             </div>
-          </div>
-        </section>
-        <!-- Indicadores -->
-        <div class="indicators">
-          <span *ngFor="let image of images; let i = index" 
-          (click)="goToImage(i)" 
-          [class.active]="isActive(i)" 
-          class="indicator"></span>
-        </div>
-        <!-- Tab bar -->
-        <section>
-          <div class="tab-bar">
-            <!-- <button class="tab-links" (click)="event()">string</button> -->
-            <button class="tab-links">Cards avulsos</button>
-            <p>|</p>
-            <button class="tab-links">Acessórios</button>
-            <p>|</p>
-            <button class="tab-links">Boosters e boxes</button>
-            <p>|</p>
-            <button class="tab-links">Expansões</button>
+            <!-- Indicadores -->
+            <div class="indicators">
+              <div class="indicator-container">
+                <span *ngFor="let image of images; let i = index" 
+                  (click)="goToImage(i)" 
+                  [class.active]="isActive(i)" 
+                  class="indicator">
+                </span>
+              </div>
+            </div>
           </div>
         </section>
         <!-- Carrossel 01 -->
@@ -143,10 +85,11 @@ import { Produto } from '../../model/produto';
   `,
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   usuario: Usuario | null = null;
   userID: string = '';
+  private intervalId: any;
 
   products: Produto[] = [];
   startIndex = 0;
@@ -167,18 +110,26 @@ export class HomeComponent implements OnInit {
 
   nextImage() {
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    this.resetAutoRotation();
   }
 
   prevImage() {
     this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+    this.resetAutoRotation();
   }
 
   goToImage(index: number) {
     this.currentIndex = index;
+    this.resetAutoRotation();
   }
 
   isActive(index: number): boolean {
     return this.currentIndex === index;
+  }
+
+  resetAutoRotation() {
+    this.stopAutoRotation();
+    this.startAutoRotation();
   }
 
   constructor(private router: Router, private route: ActivatedRoute){}
@@ -195,6 +146,24 @@ export class HomeComponent implements OnInit {
         this.products = prods;
       }
     });
+
+    this.startAutoRotation();
+  }
+
+  ngOnDestroy(): void {
+    this.stopAutoRotation();
+  }
+
+  startAutoRotation() {
+    this.intervalId = setInterval(() => {
+      this.nextImage();
+    }, 5000);
+  }
+  
+  stopAutoRotation() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
   get displayedProducts(){

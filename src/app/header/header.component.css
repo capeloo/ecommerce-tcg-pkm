@@ -1,0 +1,75 @@
+header {
+    min-width: 1000px;
+    min-height: 7vh;
+    padding: 1rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    border-bottom: 2px solid #EDEDED;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#logo {
+    margin-right: 1rem;
+}
+
+#search {
+    background-color: var(--bg1);
+    padding: 0.5rem;
+    padding-left: 1rem;
+    margin: auto;
+    margin-right: 1rem;
+    min-height: 25px;
+    width: 28rem;
+    border-radius: 10px;
+    border: 2px solid var(--white);
+    display: flex;
+    align-items: center;
+}
+
+#search>input {
+    width: 25rem;
+    height: 25px;
+    margin-left: 0.5rem;
+    background-color: var(--bg1);
+    font-family: "Roboto Flex", sans-serif;
+    border: none;
+}
+
+#search:hover, #search:focus {
+    border: 2px solid var(--primary);
+    transition: 0.3s;
+}
+
+#search>input:focus {
+    outline: none;
+}
+
+#actions {
+    display: flex;
+    
+}
+
+#actions>div {
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#actions>div>a {
+    text-decoration: none;
+    padding: 0.25rem;
+}
+
+#actions>div>a>p {
+    color: var(--txt);
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 700;
+}
+
+#divider {
+    color: var(--line);
+    font-size: 1.5rem;
+}
