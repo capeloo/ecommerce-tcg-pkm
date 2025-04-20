@@ -26,7 +26,16 @@ import { AppService } from '../../app.service';
               placeholder="Nome" 
               formControlName="nome"  
               required
-            >          
+            >         
+
+            <input 
+              type="text" 
+              name="photo" 
+              id="photo" 
+              placeholder="Foto" 
+              formControlName="photo"  
+              required
+            >   
           </section>
 
           <button type="submit">Inserir</button>
@@ -45,11 +54,13 @@ export class AddcatComponent {
   
     addCatForm = new FormGroup({
         nome: new FormControl(''),
+        photo: new FormControl(''),
       });
   
       async inserirCategoria(){
             const res = await this.appService.inserirCategoria(
               this.addCatForm.value.nome ?? '',
+              this.addCatForm.value.photo ?? '',
             );
     
             if(res){

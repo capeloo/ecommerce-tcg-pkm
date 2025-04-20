@@ -477,10 +477,11 @@ export class AppService {
         }
     }
 
-    async inserirCategoria(nome: string) {
+    async inserirCategoria(nome: string, photo: string) {
 
         const data = {
             nome: nome,
+            foto: photo,
         }
 
         try {
@@ -523,11 +524,12 @@ export class AppService {
         }
     }
 
-    async editarCategoria(id: string, nome: string) {
+    async editarCategoria(id: string, nome: string, photo: string) {
 
         const data = {
             id: id,
             nome: nome,
+            photo: photo,
         }
 
         try {

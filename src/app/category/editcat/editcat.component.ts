@@ -38,6 +38,15 @@ import { FormGroup, FormControl } from '@angular/forms';
               formControlName="nome"  
               required
             >          
+
+            <input 
+              type="text" 
+              name="photo" 
+              id="photo" 
+              placeholder="Foto" 
+              formControlName="photo"  
+              required
+            >        
           </section>
 
           <button type="submit">Editar</button>
@@ -62,6 +71,7 @@ export class EditcatComponent implements OnInit {
     editCatForm = new FormGroup({
           id: new FormControl(''),
           nome: new FormControl(''),
+          photo: new FormControl(''),
     });
   
     async consultarCategoria(){
@@ -89,6 +99,7 @@ export class EditcatComponent implements OnInit {
       const res = await this.appService.editarCategoria(
         this.editCatForm.value.id ?? '',
         this.editCatForm.value.nome ?? '',
+        this.editCatForm.value.photo ?? '',
       );
   
       if(res){
