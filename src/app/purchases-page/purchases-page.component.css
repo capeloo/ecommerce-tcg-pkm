@@ -1,0 +1,76 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.product-list {
+    width: 600px;
+    background-color: white;  
+    border-collapse: separate; 
+    border-radius: 8px; 
+    overflow: hidden; 
+    font-family: sans-serif;
+    border: 1px solid var(--lightGray); 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.053), 0 6px 20px 0 rgba(0, 0, 0, 0.03);
+}
+
+.product-list>thead>tr {
+    border: 1px solid var(--lightGray);
+    border-bottom: 8px;
+}
+
+.product-list>thead>tr>th {
+    padding: 10px;
+    font-size: 12px;
+    color: var(--gray80);
+}
+
+.product-list td, .product-list th {
+    padding: 10px;
+    border-bottom: 1px solid var(--lightGray); 
+    text-align: center;
+}
+
+.product-list tbody tr:last-child td {
+    border-bottom: none; 
+}
+.product-list>tbody>tr>td {
+    font-size: 14px;
+    padding: 10px;
+}
+
+.product-list>tbody>tr>td>button {
+    border: 1px solid var(--lightGray);
+    background-color: white;
+    width: 100px;
+    height: 25px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.product-list>tbody>tr>td>button:hover {
+    cursor: pointer;
+    transform: scale(110%);
+    transition: 0.25s;
+    border: 1px solid var(--primary);
+}
+
+h1  {
+    font-family: sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    padding: 10px;
+}
