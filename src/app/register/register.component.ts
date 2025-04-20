@@ -3,11 +3,12 @@ import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from '../app.service';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from "../header/header.component";
+import { HeaderComponent } from "../components/header/header.component";
+import { FooterComponent } from '../components/footer/footer.component';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterModule, ReactiveFormsModule, CommonModule, HeaderComponent],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule, HeaderComponent, FooterComponent],
   template: `
     <app-header></app-header>
     <body class="register-body">  
@@ -73,6 +74,7 @@ import { HeaderComponent } from "../header/header.component";
         </form>
       </main>
     </body>
+    <app-footer></app-footer>
   `,
   styleUrls: ['./register.component.css']
 })

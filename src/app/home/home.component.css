@@ -1,189 +1,15 @@
-header {
-    background-color: var(--blue500);
-    width: 100%;
-    height: 10vh;
-    display: flex;
-    justify-content: space-between;
+main {
+    margin-bottom: 7rem;
 }
 
-img#logo {
-    padding: 0.5rem;
-    margin-left: 0.5rem;
-}
-
-img#logo:hover {
-    cursor: pointer;
-    border: 1px solid white;
-}
-
-img#lupa {
-    width: 1rem;
-    height: 1rem;
-}
-
-div#search-bar {
-    background-color: var(--blue200);
-    padding: 0.5rem;
-    margin: auto;
-    height: 2.5vh;
-    width: 28rem;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-}
-
-div#search-bar>input {
-    width: 25rem;
-    height: 3vh;
-    margin-left: 0.5rem;
-    background-color: var(--blue200);
-    border: none;
-}
-
-div#search-bar:hover, div#search-bar:focus {
-    border: 1.5px solid white;
-}
-
-div#search-bar>input:focus {
-    outline: none;
-}
-
-div.actions {
-    display: flex;
-    flex-direction: row;
-}
-
-
-div.dropdown  {
-    width: 11vw;
-    padding: 0.5rem;
-    margin-right: 0.5rem;
-    font-family: sans-serif;
-    color: white;
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-button {
-    cursor: pointer;
-    border: 1px solid var(--blue500);
-    padding: 0.2rem;
-}
-
-.dropdown-button:hover, .dropdown-button:focus {
-    border: 1px solid white;
-}
-
-.dropdown-content {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: var(--blue100);
-    min-width: 160px;
-    padding: 1rem;
-    right: 8px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content>a {
-    color: white;
-    text-align: center;
-    border-radius: 5px;
-    background-color: var(--blue500);
-    width: 120px;
-    padding: 0.5rem;
-    text-decoration: none;
-    display: block;
-    cursor: pointer;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.dropdown-content>a:hover, .dropdown-content>a:focus {
-    background-color: var(--blue100);
-    color: var(--blue500);
-}
-
-.dropdown-content>p {
-    font-family: sans-serif;
-    color: black;
-    padding: 0.5rem;
-}
-
-a.foto-perfil {
-    width: 3rem;
-    height: 2.65rem;
-    padding: 0.5rem;
-    display: flex;
-    justify-content: center;
-}
-
-a.foto-perfil>img {
-    width: 2.5rem;
-    border-radius: 100px;
-    border: 3px solid rgba(255, 255, 255, 0);
-}
-
-a.foto-perfil>img:hover, a.foto-perfil>img:focus {
-    cursor: pointer;
-    border: 3px solid white;
-    transition: 0.25s;
-}
-
-a.carrinho {
-    width: 1.1rem;
-    height: 1.1rem;
-    padding: 0.5rem;
-    margin-right: 1rem;
-    background-color: var(--blue200);
-    border-radius: 100px;
-    display: flex;
-    justify-content: center;
-    border: 3px solid rgba(255, 255, 255, 0);
-}
-
-a.compras {
-    width: 1.1rem;
-    height: 1.1rem;
-    padding: 0.5rem;
-    margin-right: 0.75rem;
-    background-color: var(--blue200);
-    border-radius: 100px;
-    display: flex;
-    justify-content: center;
-    border: 3px solid rgba(255, 255, 255, 0);
-}
-
-a.compras:hover, a.carrinho:focus {
-    cursor: pointer;
-    border: 3px solid white;
-    transition: 0.25s;
-}
-
-a.carrinho:hover, a.carrinho:focus {
-    cursor: pointer;
-    border: 3px solid white;
-    transition: 0.25s;
-}
-
-div.actions {
-    display: flex;
-    align-items: center;
-    color: white;
-    font-family: sans-serif;
-}
-
-div.actions>p>a {
-    color: rgb(255, 99, 99);
-    cursor: pointer;
-}
+/* BANNER */
 
 .banner-container {
     margin: 0 auto;
     margin-top: 2rem;
     margin-bottom: 2rem;
     display: flex;
+    min-width: 1260px;
     justify-content: center;
     align-items: center;
   }
@@ -304,78 +130,104 @@ div.actions>p>a {
     background-color: rgba(255, 255, 255, 0.8);
   }
 
-
-.tab-bar {
-    background-color: var(--blue200);
-    width: 100%;
-    height: 7vh;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.tab-links {
-    padding: 0.5rem;
-    width: 18rem;
-    font-family: sans-serif;
-    border: none;
-    background-color: var(--blue200);
-}
-
-.tab-links:hover {
-    cursor: pointer;
-    border: 1.5px solid white;
-    border-radius: 10px;
-}
+/* CARROSSEL 1 */
 
 .carousel1 {
-    background-color: var(--blue100);
-    width: 100%;
-    height: 450px;
+    background-color: var(--white);
+    min-width: 1260px;
+    height: 400px;
+    margin-top: 7rem;
+    margin-bottom: 7rem;
+    position: relative;
 }
 
-.carousel1>h1 {
-    font-family: sans-serif;
-    font-size: 1.5rem;
-    padding: 1rem;
-    padding-top: 1.5rem;
-    padding-left: 1.5rem;
+#carousel1-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5.1rem;
+    padding-right: 5.2rem;
+}
+
+.carousel1>hr {
+    background-color: var(--primary);
+    height: 0.25rem;
+    width: 450px;
+    border: 0;
+    margin-left: 5.2rem;
+    margin-bottom: 1rem;
+}
+
+.carousel1>div>h1 {
+    font-family: "Roboto Flex", sans-serif;
+    padding-bottom: 1rem;
+    font-weight: 700;
+    color: var(--txt);
+}
+
+.carousel1>div>a {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 400;
+    padding-bottom: 1rem;
+    color: var(--heading);
+    text-decoration: none;
 }
 
 .carousel1-content {
     display: flex;
     width: 100%;
     justify-content: center;
+    align-items: center;
     padding: 1rem 0 1rem 0;
+    position: relative;
+    
 }
 
 .carousel1-content>button {
-    width: 100px;
+    min-width: 80px;
+    height: 80px;
     font-family: sans-serif;
-    font-size: 1.5rem;
-    background-color: var(--blue500);
-    border: 1px solid rgba(255, 255, 255, 0);
-    color: white;
+    font-size: 2rem;
+    background-color: var(--yellow);
+    border: 7px solid var(--white);
+    border-radius: 100px;
+    color: var(--primary);
+    font-family: "Roboto Flex", sans-serif;
+    position: absolute;
+    top: 50%; 
+    transform: translateY(-50%); 
+    z-index: 10; 
+    transition: 0.3s;
+}
+
+.carousel1-content > button:first-child {
+    left: 50px; 
+}
+
+.carousel1-content > button:last-child {
+    right: 50px; 
 }
 
 .carousel1-content>button:hover {
-    border: 1px solid white;
+    border: 7px solid var(--primary);
     cursor: pointer;
 }
 
 .carousel1-card {
     width: 200px;
     height: 300px;
-    background-color: var(--blue100);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: var(--white);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.01);
     border-radius: 10px;
-    padding: 1rem;
+    padding: 1.35rem;
     margin: 5px;
+    border: 2px solid var(--bg1);
 }
 
 .carousel1-card:hover {
-    transform: scale(110%);
+    transform: scale(105%);
     transition: 0.25s;
+    border: 2px solid var(--yellow);
     cursor: pointer;
 }
 
@@ -391,8 +243,9 @@ div.actions>p>a {
     padding-top: 10px;
 }
 
+/* CARROSSEL 2 */
+
 .carousel2 {
-    background-color: var(--blue100);
     width: 100%;
     height: 50vh;
 }
@@ -403,6 +256,102 @@ div.actions>p>a {
     padding: 1rem;
     padding-top: 1.5rem;
     padding-left: 1.5rem;
+}
+
+#carousel2-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5.1rem;
+    padding-right: 5.2rem;
+}
+
+.carousel2>hr {
+    background-color: var(--primary);
+    height: 0.25rem;
+    width: 450px;
+    border: 0;
+    margin-left: 5.2rem;
+    margin-bottom: 1rem;
+}
+
+.carousel2>div>h1 {
+    font-family: "Roboto Flex", sans-serif;
+    padding-bottom: 1rem;
+    font-weight: 700;
+    color: var(--txt);
+}
+
+.carousel2>div>a {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 400;
+    padding-bottom: 1rem;
+    color: var(--heading);
+    text-decoration: none;
+}
+
+/* CARROSSEL 3 */
+
+.carousel3 {
+    background-color: var(--white);
+    min-width: 1260px;
+    height: 400px;
+}
+
+#carousel3-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5.1rem;
+    padding-right: 5.2rem;
+}
+
+.carousel3>hr {
+    background-color: var(--primary);
+    height: 0.25rem;
+    width: 450px;
+    border: 0;
+    margin-left: 5.2rem;
+    margin-bottom: 2rem;
+}
+
+.carousel3>div>h1 {
+    font-family: "Roboto Flex", sans-serif;
+    padding-bottom: 1rem;
+    font-weight: 700;
+    color: var(--txt);
+}
+
+.carousel3>div>a {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 400;
+    padding-bottom: 1rem;
+    color: var(--heading);
+    text-decoration: none;
+}
+
+#carousel3-content {
+    min-width: 1260px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 1rem 0 1rem 0;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;   
+}
+
+#carousel3-content>a {
+    min-width: 250px;
+    border: 2px solid var(--white);
+    border-radius: 16px;
+    height: 190px;
+}
+
+#carousel3-content>a:hover {
+    transform: scale(105%);
+    transition: 0.25s;
+    border: 2px solid var(--yellow);
+    cursor: pointer;
 }
 
 footer {
