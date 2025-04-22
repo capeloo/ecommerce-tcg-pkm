@@ -1,6 +1,27 @@
+nav {
+    background-color: var(--primary);
+    height: 60px;
+}
+
+nav>div {
+    width: 8rem;
+    font-family: "Roboto Flex", sans-serif;
+    color: var(--white);
+    height: 60px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-left: 4.5rem;
+}
+
+nav>div>a {
+    text-decoration: none;
+    color: var(--white);
+}
+
 body.register-body {
-    background-color: #7caefc;
-    font-family: Arial, sans-serif;
+    background-color: var(--white);
+    font-family: "Roboto Flex", sans-serif;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -10,7 +31,7 @@ body.register-body {
 }
 
 main.register-main {
-    background-color: #f3f6fd;
+    background-color: var(--white);
     border-radius: 12px;
     padding: 24px;
     width: 360px;
@@ -20,7 +41,7 @@ main.register-main {
 
 
 img.register-logo {
-    width: 60px;
+    width: 90px;
     height: auto;
     margin-bottom: 16px;
 }
@@ -28,15 +49,15 @@ img.register-logo {
 
 h1.register-title {
     font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
+    color: var(--heading);
     margin-bottom: 8px;
 }
 
 p.register-description {
-    font-size: 0.9rem;
-    color: #555;
+    font-size: 1.1rem;
+    color: var(--txt);
     margin-bottom: 24px;
+    line-height: 1.8rem;
 }
 
 
@@ -51,42 +72,46 @@ input.register-input {
     padding: 12px;
     font-size: 1rem;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
-input.register-input:focus {
-    border-color: #7caefc;
+input.register-input:focus, input.register-input:hover {
+    border-color: var(--primary);
     outline: none;
     box-shadow: 0 0 4px rgba(124, 174, 252, 0.5);
 }
 
 
 button.register-button {
-    background-color: #7caefc;
-    color: #fff;
+    background-color: var(--primary);
+    color: var(--white);
     padding: 12px;
     font-size: 1rem;
+    width: 100%;
     border: none;
-    margin-bottom: 1rem;
-    border-radius: 8px;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    border: 1px solid var(--primary);
 }
 
 button.register-button:hover {
-    background-color: #5d91e6;
+    background-color: var(--white);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    transition: 0.3s;
 }
 
 
 p.register-login {
-    font-size: 0.9rem;
-    color: #333;
+    font-size: 0.8rem;
+    color: var(--txt);
+    margin-top: 1rem;
 }
 
 a.register-login-link {
-    color: #7caefc;
-    text-decoration: none;
-    font-weight: bold;
+    color: var(--heading);
+    text-decoration: underline;
 }
 
 a.register-login-link:hover {

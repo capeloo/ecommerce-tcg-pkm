@@ -11,6 +11,18 @@ import { FooterComponent } from '../components/footer/footer.component';
   imports: [RouterModule, ReactiveFormsModule, CommonModule, HeaderComponent, FooterComponent],
   template: `
     <app-header></app-header>
+    <nav id="breadcrumbs">
+      <div>
+        <a [routerLink]="['/']">
+          <img 
+            src="general/home.png" 
+            alt=""
+          >
+        </a>
+        <p>></p>
+        <a [routerLink]="['/register']">Cadastro</a>
+      </div>
+    </nav>
     <body class="register-body">  
       <main class="register-main">
         <form [formGroup]="registerForm" (ngSubmit)="registerUsuario()" class="register-form">
@@ -70,7 +82,7 @@ import { FooterComponent } from '../components/footer/footer.component';
 
           <button type="submit" class="register-button">Cadastrar</button>
 
-          <p>Já possui cadastro? <a [routerLink]="['/auth']">Entre por aqui</a></p>
+          <p class="register-login">Já possui cadastro? <a class="register-login-link" [routerLink]="['/auth']">Entre por aqui</a></p>
         </form>
       </main>
     </body>

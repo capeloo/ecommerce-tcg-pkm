@@ -2,23 +2,34 @@ import { Component, inject, OnInit } from '@angular/core';
 import { PokebagItem } from '../../model/pokebagItem';
 import { AppService } from '../app.service';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { HeaderComponent } from '../components/header/header.component';
+import { FooterComponent } from '../components/footer/footer.component';
+import { Usuario } from '../../model/usuario';
 
 @Component({
   selector: 'app-pokebag-page',
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent, FooterComponent, RouterModule],
   template: `
+    <app-header [isUserLoggedOn]="isUserLoggedOn"
+    [usuario]="usuario">></app-header>
+    <nav id="breadcrumbs">
+      <div>
+        <a [routerLink]="['/']" [queryParams]="{id: usuario?.id}">
+          <img 
+            src="general/home.png" 
+            alt=""
+          >
+        </a>
+        <p>></p>
+        <a [routerLink]="['/pokebag']">Pokébag</a>
+      </div>
+    </nav>
     <body>
-      <div *ngIf="vendaError">
+
+      <div id="error" *ngIf="vendaError">
         <p>{{ vendaError }}</p>
       </div>
-      <a (click)="goBackToHome()">
-        <img 
-          src="logo.png" 
-          alt="Logo"
-          id="logo"
-        > 
-      </a>
 
       <h1>Minha Pokébag</h1>
       <main>  
@@ -61,6 +72,7 @@ import { ActivatedRoute, Router } from '@angular/router';
         </div>
       </main>
     </body>
+    <app-footer></app-footer>
   `,
   styleUrl: './pokebag-page.component.css'
 })
@@ -69,6 +81,10 @@ export class PokebagPageComponent implements OnInit {
   total: number = 0;
   vendaError: string = '';
   id: string | null = null;
+  
+  userID: string = '';
+  usuario: Usuario | null = null;
+  isUserLoggedOn = false;
 
   appService = inject(AppService);
 
@@ -78,6 +94,12 @@ export class PokebagPageComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.id = params['id']; 
     });
+
+    this.route.queryParams.subscribe(params => {
+      this.userID = params['id'];
+    });
+
+    const res = this.consultarUsuario(this.userID);
   }
 
   constructor(private router: Router, private route: ActivatedRoute){}
@@ -127,6 +149,20 @@ export class PokebagPageComponent implements OnInit {
       this.router.navigate(['/'], { queryParams: { id: this.id } });
     } else {
       this.router.navigate(['/']);
+  }
+}
+
+async consultarUsuario(id: string){
+  try {
+    const usuario = await this.appService.consultarUsuarioPorId(id);
+
+    if(usuario?.id){
+      this.usuario = usuario;
+      this.isUserLoggedOn = true;
+    } 
+    
+  } catch (error) {
+    console.log(error);
   }
 }
 

@@ -69,6 +69,34 @@ header {
     font-weight: 700;
 }
 
+#profile>a>img {
+    width: 40px;
+    border-radius: 40px;
+    margin-right: 0.8rem;
+    border: 2px solid var(--white);
+    
+}
+
+#profile>a>img:hover {
+    border: 2px solid var(--primary);
+    transition: 0.3s;
+}
+
+#profile>p {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 700;
+    color: var(--txt);
+}
+
+#profile>a {
+    color: rgb(189, 1, 1);
+    font-family: "Roboto Flex", sans-serif;
+}
+
+#profile>a:hover {
+    cursor: pointer;
+}
+
 #divider {
     color: var(--line);
     font-size: 1.5rem;

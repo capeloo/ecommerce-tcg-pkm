@@ -4,11 +4,26 @@ import { AppService } from '../app.service';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../components/header/header.component';
+import { FooterComponent } from '../components/footer/footer.component';
 
 @Component({
   selector: 'app-auth',
-  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, HeaderComponent, FooterComponent],
   template: `
+    <app-header></app-header>
+    <nav id="breadcrumbs">
+      <div>
+        <a [routerLink]="['/']">
+          <img 
+            src="general/home.png" 
+            alt=""
+          >
+        </a>
+        <p>></p>
+        <a [routerLink]="['/auth']">Login</a>
+      </div>
+    </nav>
     <body class="auth-body">
       <main class="auth-main">
         <form [formGroup]="authForm" (ngSubmit)="signInUsuario()" class="auth-form">
@@ -46,6 +61,7 @@ import { CommonModule } from '@angular/common';
               class="auth-input" 
               required
             >
+            <a href="">Esqueceu sua senha?</a>
           </section>
 
           <button type="submit" class="auth-button">Entrar</button>
@@ -57,6 +73,7 @@ import { CommonModule } from '@angular/common';
         </form>
       </main>
     </body>
+    <app-footer></app-footer>
   `,
   styleUrls: ['./auth.component.css']
 })

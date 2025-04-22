@@ -14,7 +14,7 @@ import { FooterComponent } from '../components/footer/footer.component';
   imports: [CommonModule, RouterModule, HeaderComponent, FooterComponent],
   template: `
     <body>
-      <app-header></app-header>
+      <app-header [isUserLoggedOn]="isUserLoggedOn" [usuario]="this.usuario"></app-header>
       <main>
         <!-- Banner -->
         <section class="banner-container">

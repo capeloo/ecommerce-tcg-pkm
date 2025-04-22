@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject, Input } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { Usuario } from '../../../model/usuario';
+import { AppService } from '../../app.service';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   template: `
     <header>
       <!-- Logo -->
-      <a [routerLink]="['/']" id="logo">
+      <a [routerLink]="['/']" [queryParams]="{id: usuario?.id}" id="logo">
         <img 
           src="general/celadon-mall.png" 
           alt="Celadon Mall logo"
@@ -31,28 +33,38 @@ import { RouterModule } from '@angular/router';
 
       <!-- Actions -->
       <div id="actions">
-        <div>
-          <a [routerLink]="['/register']">
+        <div *ngIf="!isUserLoggedOn">
+          <a [routerLink]="['/auth']">
             <img 
               src="general/user.png" 
               alt="User icon"
             >
           </a>
-          <a [routerLink]="['/register']">
+          <a [routerLink]="['/auth']">
             <p>
               Entre por aqui
             </p>
           </a>
         </div>
+        <div id="profile" *ngIf="isUserLoggedOn">
+          <a [routerLink]="['/profile', usuario?.id]">
+            <img 
+              src="foto-perfil.jpg" 
+              alt=""
+            >
+          </a>
+          <p>Olá, {{ usuario?.nome }}!</p>
+          <a (click)="signOutUsuario()">Sair</a>
+        </div>
         <div id="divider">|</div>
         <div>
-          <a [routerLink]="['/pokebag']">
+          <a [routerLink]="['/pokebag']" [queryParams]="{id: usuario?.id}">
             <img 
               src="general/pokebag.png" 
               alt="Pokebag icon"
             >
           </a>
-          <a [routerLink]="['/pokebag']">
+          <a [routerLink]="['/pokebag']" [queryParams]="{id: usuario?.id}">
             <p>
               Pokébag
             </p>
@@ -64,5 +76,24 @@ import { RouterModule } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  @Input() isUserLoggedOn: boolean = false;
+  @Input() usuario: Usuario | null = null;
 
+  appService = inject(AppService);
+  private router = inject(Router);
+  
+  async signOutUsuario() {
+    try {
+      await this.appService.desconectarUsuario();
+      await this.router.navigate(['/']);
+      window.location.reload();
+      
+    } catch (error) {
+      console.error('Erro durante logout:', error);
+
+      this.router.navigate(['/']).then(() => {
+        window.location.reload();
+      });
+    }
+  }
 }
