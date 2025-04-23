@@ -56,7 +56,7 @@ import { AuthService } from '../services/auth.service';
               <
             </button>
             <div *ngFor="let product of displayedProducts">
-              <div class="carousel1-card" [routerLink]="['/product-page', product.id]" [queryParams]="{id: this.usuario?.id}">
+              <div class="carousel1-card" [routerLink]="['/product-page', product.id]">
                 <img src="{{ product.foto }}" [alt]="product.descricao">
                 <p>{{ product.descricao }}</p>
               </div>          

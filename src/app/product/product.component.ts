@@ -13,35 +13,54 @@ import { AuthService } from '../services/auth.service';
   imports: [CommonModule, RouterModule, HeaderComponent, FooterComponent],
   template: `
     <app-header [isUserLoggedOn]="isUserLoggedOn" [usuario]="this.usuario"></app-header>
+    <nav id="breadcrumbs">
+      <div>
+        <a [routerLink]="['/']">
+          <img 
+            src="general/home.png" 
+            alt=""
+          >
+        </a>
+        <p>></p>
+        <a [routerLink]="['/product']">Produtos</a>
+      </div>
+    </nav>
     <body>
       <main>
-        <h1>Produtos</h1>
-        <a [routerLink]="['/addprod']">Inserir produto</a>
-        <table>
-        <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Categoria</th>
-              <th>Expansão</th>
-              <th>Preço</th>
-              <th>Quantidade</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let produto of listProds">
-              <td>{{ produto.descricao }}</td>
-              <td>{{ produto.id_categoria }}</td>
-              <td>{{ produto.id_expansao }}</td>
-              <td>{{ produto.preco | currency }}</td>
-              <td>{{ produto.quantidade }}</td>
-              <td>
-                <a [routerLink]="['/editprod', produto.id]">Editar</a>
-                <a (click)="deleteProduct(produto.id.toString())">Excluir</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="filters">
+          <div>
+            <h2>Categorias</h2>
+            <p>Cartas</p>
+            <p>Blisters</p>
+            <p>Boxes</p>
+            <p>Cases</p>
+            <p>Moedas</p>
+            <p>Latas</p>
+            <p>Boosters avulsos</p>
+          </div>
+          <div>
+            <h2>Expansões</h2>
+            <p>Evoluções prismáticas</p>
+            <p>Coroa estelar</p>
+            <p>Fenda paradoxal</p>
+          </div>
+        </div> 
+        <div>
+          <h1>Produtos</h1>
+          <div class="produtos">
+            <div [routerLink]="['/product-page', produto.id ]" *ngFor="let produto of listProds">
+              <img 
+                src="{{ produto.foto }}" 
+                alt=""
+              >
+              <p>{{ produto.descricao }}</p>
+              <div>
+                <h2>{{ produto.quantidade }} u.</h2>
+                <h2>R$ {{ produto.preco }}</h2> 
+              </div>    
+            </div>
+          </div>
+        </div>
       </main>
     </body>
     <app-footer></app-footer>
@@ -71,7 +90,7 @@ export class ProductComponent implements OnInit {
 
   async buscarProds(){
     try {
-      const list = await this.appService.buscarProdutosEmEstoque();
+      const list = await this.appService.buscarProdutos();
 
       if(list && list.length > 0){
         this.listProds = list;
