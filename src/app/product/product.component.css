@@ -41,10 +41,51 @@ main>div>h1 {
 
 .filters {
   width: 250px;
-  height: 300px;
-  border: 2px solid var(--line);
+  height: 340px;
   padding: 1rem;
-  margin-top: 5.1rem;
+  margin-top: 4rem;
+  font-family: "Roboto Flex", sans-serif;
+}
+
+.filters>div {
+    padding-bottom: 0.5rem;
+}
+
+.filters>div>h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.filters>div>button {
+    width: 90%;
+    height: 50px;
+    background-color: var(--primary);
+    color: var(--white);
+    font-family: "Roboto Flex", sans-serif;
+    font-size: 1rem;
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    margin-top: 2rem;
+}
+
+.filters>div>button:hover {
+    cursor: pointer;
+    color: var(--primary);
+    background-color: var(--white);
+    border: 2px solid var(--primary);
+    transition: 0.3s;
+}
+
+.filters>div>div>p {
+    padding-top: 0.4rem;
+    padding-left: 0.8rem;
+}
+
+.filters>div>div {
+    width: 220px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .produtos {

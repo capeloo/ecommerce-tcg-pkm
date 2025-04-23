@@ -30,19 +30,50 @@ import { AuthService } from '../services/auth.service';
         <div class="filters">
           <div>
             <h2>Categorias</h2>
-            <p>Cartas</p>
-            <p>Blisters</p>
-            <p>Boxes</p>
-            <p>Cases</p>
-            <p>Moedas</p>
-            <p>Latas</p>
-            <p>Boosters avulsos</p>
+            <div>
+              <p>Cartas</p>
+              <input type="checkbox" name="" id="">
+            </div>
+            <div>
+              <p>Blisters</p>
+              <input type="checkbox" name="" id="">
+            </div>
+            <div>
+              <p>Boxes</p>
+              <input type="checkbox" name="" id="">
+            </div>
+            <div>
+              <p>Cases</p>
+              <input type="checkbox" name="" id="">
+            </div>
+            <div>
+              <p>Moedas</p>
+              <input type="checkbox" name="" id="">
+            </div>
+            <div>
+              <p>Latas</p>
+              <input type="checkbox" name="" id="">
+            </div>
+            <div>
+              <p>Boosters avulsos</p>
+              <input type="checkbox" name="" id="">
+            </div>
           </div>
           <div>
             <h2>Expansões</h2>
-            <p>Evoluções prismáticas</p>
-            <p>Coroa estelar</p>
-            <p>Fenda paradoxal</p>
+            <div>
+              <p>Evoluções prismáticas</p>
+              <input type="checkbox" name="" id="">
+            </div>
+            <div>
+              <p>Coroa estelar</p>
+              <input type="checkbox" name="" id="">
+            </div>
+            <div>
+              <p>Fenda paradoxal</p>
+              <input type="checkbox" name="" id="">
+            </div> 
+            <button>Filtrar</button>
           </div>
         </div> 
         <div>

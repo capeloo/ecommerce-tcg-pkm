@@ -4,38 +4,61 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AppService } from '../services/app.service';
 import { Usuario } from '../../model/usuario';
+import { HeaderComponent } from "../components/header/header.component";
+import { FooterComponent } from "../components/footer/footer.component";
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-profile',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, HeaderComponent, FooterComponent],
   template: `
+    <app-header [isUserLoggedOn]="isUserLoggedOn" [usuario]="this.usuario"></app-header>
     <body>
       <main>
-        <div>
-          <a (click)="goBackToHome()">
+        <div class="section-1">
+          <nav>
+            <h2>Navegação</h2>
+            <div>
+              <img 
+                src="" 
+                alt=""
+              >
+              <p>Dashboard</p>
+            </div>
+            <div>
+              <img 
+                src="" 
+                alt=""
+              >
+              <p>Pokébag</p>
+            </div>
+            <div>
+              <img 
+                src="" 
+                alt=""
+              >
+              <p>Minhas compras</p>
+            </div>
+            <div>
+              <img 
+                src="" 
+                alt=""
+              >
+              <p>Log-out</p>
+            </div>
+          </nav>
+          <div>
             <img 
-              src="logo.png" 
-              alt="Logo"
-              id="logo"
-            > 
-          </a>
-          
-          <h1>Meu Perfil</h1>
-          <button>
-            <img 
-              (click)="enableEdition()"
-              src="editar.png" 
-              alt="Editar"
+              src="" 
+              alt=""
             >
-          </button>
-        </div>
-
-        <div *ngIf="profileError" class="register-error">
-          <p>{{ profileError }}</p>
-        </div>
-
-        <form [formGroup]="profileForm" (ngSubmit)="saveEdition()">
+            <h2>{{ usuario?.nome }}</h2>
+            <p>Cliente</p>
+          </div>
+          <form [formGroup]="profileForm" (ngSubmit)="saveEdition()">
           <section class="profile-input-section">
+            <h2>ENDEREÇO</h2>
+
             <input 
               type="text"
               name="id"
@@ -45,7 +68,6 @@ import { Usuario } from '../../model/usuario';
               hidden
             >
 
-            <label for="nome">Nome</label>
             <input 
               type="text"
               name="nome"
@@ -55,7 +77,6 @@ import { Usuario } from '../../model/usuario';
               [readonly]="isReadOnly"
             >
 
-            <label for="email">E-mail</label>
             <input 
               type="text"
               name="email"
@@ -65,7 +86,6 @@ import { Usuario } from '../../model/usuario';
               [readonly]="isReadOnly"
             >
 
-            <label for="endereco">Endereço</label>
             <input 
               type="text"
               name="endereco"
@@ -76,59 +96,33 @@ import { Usuario } from '../../model/usuario';
             >
           </section>
 
+          <button (click)="enableEdition()">Editar</button>
           <button type="submit" *ngIf="isReadOnly == false">Salvar</button>
+          <a (click)="deleteAccount()">Excluir conta</a>
         </form>
+        </div>
+        <div class="section-2">
+          <div>
+            <h2>Minhas compras</h2>
+            <a href="">Ver todas</a>
+          </div>
+          <table>
 
-        <a (click)="deleteAccount()">Remover conta</a>
-
+          </table>
+        </div>
       </main>
     </body>
+    <app-footer></app-footer>
   `,
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
 
   usuario: Usuario | null = null;
+  isUserLoggedOn = false;
+
   profileError: string = '';
   isReadOnly: boolean = true;
-  appService = inject(AppService);
-
-  constructor (private route: ActivatedRoute, private router: Router){}
-
-  ngOnInit(): void {
-    this.consultarUsuario();
-  }
-
-  goBackToHome() {
-    this.router.navigate([''], { queryParams: { id: this.usuario?.id } });
-  }
-
-  async consultarUsuario(){
-    try {
-      const usuario = await this.appService.consultarUsuarioPorId(this.route.snapshot.params['id']);
-
-      if(usuario?.id){
-        this.usuario = usuario;
-
-        this.profileForm.patchValue({
-          id: usuario.id.toString(),
-          nome: usuario.nome,
-          email: usuario.email,
-          endereco: usuario.endereco
-        });
-      } else {
-        window.alert('Houve um erro na consulta. Por favor, tente novamente');
-        this.router.navigate(['/']);
-      }
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  enableEdition() {
-    this.isReadOnly = false;
-  }
 
   profileForm = new FormGroup({
     id: new FormControl(''),
@@ -136,6 +130,32 @@ export class ProfileComponent implements OnInit {
     email: new FormControl(''),
     endereco: new FormControl(''),
   });
+
+  constructor (
+    private route: ActivatedRoute, 
+    private router: Router,
+    private appService: AppService,
+    private authService: AuthService,
+  ){
+    this.authService.currentUser$.subscribe(user => {
+      this.usuario = user;
+      this.isUserLoggedOn = !!user;
+    });
+    
+    if(this.usuario){
+      this.profileForm.patchValue({
+        id: this.usuario.id.toString(),
+        nome: this.usuario.nome,
+        email: this.usuario.email,
+        endereco: this.usuario.endereco
+      });
+    }
+  }
+
+
+  enableEdition() {
+    this.isReadOnly = false;
+  }
 
   async saveEdition() {
       const res = await this.appService.alterarDadosDoUsuario(
