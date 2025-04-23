@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Produto } from '../../../model/produto';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { AppService } from '../../app.service';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-editprod',

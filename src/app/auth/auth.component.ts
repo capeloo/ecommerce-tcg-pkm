@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../app.service';
+import { AppService } from '../services/app.service';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../components/header/header.component';
 import { FooterComponent } from '../components/footer/footer.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -83,7 +84,7 @@ export class AuthComponent {
   authError: string = '';
   appService = inject(AppService);
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   authForm = new FormGroup({
     email: new FormControl(''),
@@ -97,15 +98,18 @@ export class AuthComponent {
         this.authForm.value.senha ?? '',
       );
 
-      if (usuario?.id && !usuario.administrador) {
-        this.router.navigate([''], { queryParams: { id: usuario.id } });
+      if (usuario?.id) {
+        this.authService.setUser(usuario);
 
-      } else if (usuario?.id && usuario.administrador) {
-        this.router.navigate(['admin'], { queryParams: { id: usuario.id } });
-
+        if(!usuario.administrador){
+          this.router.navigate(['']);
+        } else {
+          this.router.navigate(['admin']);
+        }
       } else {
         this.authError = 'Credenciais inválidas';
       }
+      
     } catch (error) {
       this.authError = 'Erro ao autenticar. Tente novamente mais tarde.';
       console.error(error);

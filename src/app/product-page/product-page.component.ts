@@ -1,23 +1,35 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Produto } from '../../model/produto';
-import { AppService } from '../app.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from '../services/app.service';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from "../components/header/header.component";
+import { FooterComponent } from "../components/footer/footer.component";
+import { AuthService } from '../services/auth.service';
+import { Usuario } from '../../model/usuario';
 
 @Component({
   selector: 'app-product-page',
-  imports: [ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, HeaderComponent, FooterComponent, RouterModule],
   template: `
+    <app-header [isUserLoggedOn]="isUserLoggedOn" [usuario]="this.usuario"></app-header>
+    <nav id="breadcrumbs">
+      <div>
+        <a [routerLink]="['/']">
+          <img 
+            src="general/home.png" 
+            alt=""
+          >
+        </a>
+        <p>></p>
+        <a [routerLink]="['/product']">Produtos</a>
+        <p>></p>
+        <a [routerLink]="['/product-page', product?.id]" [queryParams]="{id: this.usuario?.id}">{{ product?.descricao }}</a>
+      </div>
+    </nav>
     <body>
       <main>
-      <a (click)="goBackToHome()">
-        <img 
-          src="logo.png" 
-          alt="Logo"
-          id="logo"
-        > 
-      </a>
         <form [formGroup]="pokebagItemForm" (ngSubmit)="addProductToPokebag()" class="form-content">
           <img src="{{ product?.foto }}" [alt]="product?.descricao">
           <div>
@@ -38,6 +50,7 @@ import { CommonModule } from '@angular/common';
         </form>
       </main>
     </body>
+    <app-footer></app-footer>
   `,
   styleUrl: './product-page.component.css'
 })
@@ -47,23 +60,28 @@ export class ProductPageComponent implements OnInit {
   quantity: number = 1;
   id: string | null = null;
 
-  appService = inject(AppService);
+  usuario: Usuario | null = null;
+  isUserLoggedOn = false;
 
   pokebagItemForm = new FormGroup({
       produtoId: new FormControl(''),
       quantidade: new FormControl(''),
     });
 
-  constructor(private route: ActivatedRoute, private router: Router){}
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router,
+    private appService: AppService,
+    private authService: AuthService,
+  ){
+    this.authService.currentUser$.subscribe(user => {
+      this.usuario = user;
+      this.isUserLoggedOn = !!user;
+    });
+  }
 
   ngOnInit(): void {
     this.consultarProduto();
-
-    this.route.queryParams.subscribe(params => {
-      this.id = params['id']; 
-    });
-
-    console.log(this.id);
   }
 
   async addProductToPokebag() {
@@ -76,7 +94,7 @@ export class ProductPageComponent implements OnInit {
     if(res){
       window.alert('Item adicionado à pokébag com sucesso!');
       if (this.id) {
-        this.router.navigate(['/'], { queryParams: { id: this.id } });
+        this.router.navigate(['/']);
       } else {
         this.router.navigate(['/']);
     }
@@ -109,14 +127,6 @@ export class ProductPageComponent implements OnInit {
   decreaseQuantity() {
     if (this.quantity > 1) {
       this.quantity--;
-    }
-  }
-
-  goBackToHome() {
-    if (this.id) {
-      this.router.navigate(['/'], { queryParams: { id: this.id } });
-    } else {
-      this.router.navigate(['/']);
     }
   }
 }

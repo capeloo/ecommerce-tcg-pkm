@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { AppService } from '../app.service';
+import { AppService } from '../services/app.service';
 import { Usuario } from '../../model/usuario';
 
 @Component({

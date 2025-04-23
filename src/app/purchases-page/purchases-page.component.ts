@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppService } from '../app.service';
+import { AppService } from '../services/app.service';
 import { Venda } from '../../model/venda';
 
 @Component({

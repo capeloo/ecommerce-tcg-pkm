@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Usuario } from "../model/usuario";
-import { Produto } from "../model/produto";
-import { Categoria } from "../model/categoria";
-import { PokebagItem } from "../model/pokebagItem";
-import { Venda } from "../model/venda";
+import { Usuario } from "../../model/usuario";
+import { Produto } from "../../model/produto";
+import { Categoria } from "../../model/categoria";
+import { PokebagItem } from "../../model/pokebagItem";
+import { Venda } from "../../model/venda";
 
 @Injectable({
     providedIn: 'root'

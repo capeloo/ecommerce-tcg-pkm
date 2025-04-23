@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../../app.service';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-addcat',

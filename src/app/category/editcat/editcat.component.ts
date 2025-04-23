@@ -3,7 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Categoria } from '../../../model/categoria';
-import { AppService } from '../../app.service';
+import { AppService } from '../../services/app.service';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({

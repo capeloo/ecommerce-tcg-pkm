@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { AppService } from '../app.service';
+import { AppService } from '../services/app.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../model/usuario';
@@ -8,6 +8,7 @@ import { Produto } from '../../model/produto';
 import { HeaderComponent } from '../components/header/header.component';
 import { Categoria } from '../../model/categoria';
 import { FooterComponent } from '../components/footer/footer.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -72,13 +73,13 @@ import { FooterComponent } from '../components/footer/footer.component';
             <a [routerLink]="['/product']">Veja mais <span style="color: var(--primary);">></span></a>
           </div>
           <hr>
-          <div *ngFor="let category of categories">
+          <div *ngFor="">
             <div>
               <img 
-                src="{{ category.photo }}" 
+                src="" 
                 [alt]=""
               >
-              <p>{{ category.nome }}</p>
+              <p></p>
             </div>
           </div>
         </section>
@@ -104,19 +105,13 @@ import { FooterComponent } from '../components/footer/footer.component';
 export class HomeComponent implements OnInit, OnDestroy {
 
   usuario: Usuario | null = null;
-  userID: string = '';
+  isUserLoggedOn = false;
+
   private intervalId: any;
 
   products: Produto[] = [];
   startIndex = 0;
   itemsPerPage = 5;
-
-  categories: Categoria[] = [];
-
-  appService = inject(AppService);
-  
-  isDropdownOpen = false;
-  isUserLoggedOn = false;
 
   images = [
     'stellar-crown.jpg',
@@ -125,6 +120,31 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
 
   currentIndex = 0;
+
+  constructor(
+    private authService: AuthService,
+    private appService: AppService,
+  ){
+    this.authService.currentUser$.subscribe(user => {
+      this.usuario = user;
+      this.isUserLoggedOn = !!user;
+    });
+  }
+  
+  ngOnInit(): void {
+    
+    this.appService.buscarProdutos().then(prods => {
+      if(prods){
+        this.products = prods;
+      }
+    });
+
+    this.startAutoRotation();
+  }
+
+  ngOnDestroy(): void {
+    this.stopAutoRotation();
+  }
 
   nextImage() {
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
@@ -148,28 +168,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   resetAutoRotation() {
     this.stopAutoRotation();
     this.startAutoRotation();
-  }
-
-  constructor(private router: Router, private route: ActivatedRoute){}
-  
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.userID = params['id'];
-    });
-
-    const res = this.consultarUsuario(this.userID);
-
-    this.appService.buscarProdutos().then(prods => {
-      if(prods){
-        this.products = prods;
-      }
-    });
-
-    this.startAutoRotation();
-  }
-
-  ngOnDestroy(): void {
-    this.stopAutoRotation();
   }
 
   startAutoRotation() {
@@ -198,54 +196,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.startIndex - 1 >= 0) {
       this.startIndex -= 1;
     }
-  }
-
-  async consultarUsuario(id: string){
-    try {
-      const usuario = await this.appService.consultarUsuarioPorId(id);
-
-      if(usuario?.id){
-        this.usuario = usuario;
-        this.isUserLoggedOn = true;
-      } 
-      
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  toggleDropdown(){
-    this.isDropdownOpen = !this.isDropdownOpen;
-    
-  }
-
-  async signOutUsuario(){
-    try {
-      const res = await this.appService.desconectarUsuario();
-
-      if(res){
-        this.usuario = null;
-        this.isUserLoggedOn = false;
-        this.router.navigate(['']);     
-    }} catch (error) {
-      console.error(error);
-    }
-  }
-
-  async signInUsuario(){
-    this.router.navigate(['auth']);
-  }
-
-  async goToHome(){
-    this.router.navigate(['']);
-  }
-
-  async registerUsuario(){
-    this.router.navigate(['register']);
-  }
-
-  goToPokebag() {
-    this.router.navigate(['/pokebag'], { queryParams: { id: this.usuario?.id } });
   }
 
 }

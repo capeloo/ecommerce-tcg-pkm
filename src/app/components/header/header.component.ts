@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Usuario } from '../../../model/usuario';
-import { AppService } from '../../app.service';
+import { AppService } from '../../services/app.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ import { AppService } from '../../app.service';
   template: `
     <header>
       <!-- Logo -->
-      <a [routerLink]="['/']" [queryParams]="{id: usuario?.id}" id="logo">
+      <a [routerLink]="['/']" id="logo">
         <img 
           src="general/celadon-mall.png" 
           alt="Celadon Mall logo"
@@ -58,13 +59,13 @@ import { AppService } from '../../app.service';
         </div>
         <div id="divider">|</div>
         <div>
-          <a [routerLink]="['/pokebag']" [queryParams]="{id: usuario?.id}">
+          <a [routerLink]="['/pokebag']">
             <img 
               src="general/pokebag.png" 
               alt="Pokebag icon"
             >
           </a>
-          <a [routerLink]="['/pokebag']" [queryParams]="{id: usuario?.id}">
+          <a [routerLink]="['/pokebag']">
             <p>
               Pokébag
             </p>
@@ -79,21 +80,21 @@ export class HeaderComponent {
   @Input() isUserLoggedOn: boolean = false;
   @Input() usuario: Usuario | null = null;
 
-  appService = inject(AppService);
-  private router = inject(Router);
+  constructor(
+    private router: Router,
+    private appService: AppService,
+    private authService: AuthService,
+  ){}
   
   async signOutUsuario() {
     try {
       await this.appService.desconectarUsuario();
-      await this.router.navigate(['/']);
-      window.location.reload();
-      
+      this.authService.clearUser();
+      this.router.navigate(['/']);
+
     } catch (error) {
       console.error('Erro durante logout:', error);
-
-      this.router.navigate(['/']).then(() => {
-        window.location.reload();
-      });
-    }
+      this.router.navigate(['/']);
+      };
   }
 }

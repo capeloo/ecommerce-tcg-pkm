@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppService } from '../app.service';
+import { AppService } from '../services/app.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../components/header/header.component";
 import { FooterComponent } from '../components/footer/footer.component';
