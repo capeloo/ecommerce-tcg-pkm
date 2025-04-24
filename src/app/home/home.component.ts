@@ -59,6 +59,10 @@ import { AuthService } from '../services/auth.service';
               <div class="carousel1-card" [routerLink]="['/product-page', product.id]">
                 <img src="{{ product.foto }}" [alt]="product.descricao">
                 <p>{{ product.descricao }}</p>
+                <div>
+                  <h2>{{ product.quantidade }} u.</h2>
+                  <h2>R$ {{ product.preco }}</h2> 
+                </div>   
               </div>          
             </div>
             <button (click)="handleNext()" [disabled]="startIndex + 5 >= products.length">

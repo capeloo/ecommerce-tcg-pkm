@@ -8,10 +8,22 @@ import { HeaderComponent } from "../components/header/header.component";
 import { FooterComponent } from "../components/footer/footer.component";
 import { AuthService } from '../services/auth.service';
 import { Usuario } from '../../model/usuario';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from '../components/dialog/dialog.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-product-page',
-  imports: [ReactiveFormsModule, FormsModule, CommonModule, HeaderComponent, FooterComponent, RouterModule],
+  imports: [
+    ReactiveFormsModule, 
+    FormsModule, 
+    CommonModule, 
+    HeaderComponent, 
+    FooterComponent, 
+    RouterModule, 
+    MatDialogModule,
+    MatButtonModule,
+  ],
   template: `
     <app-header [isUserLoggedOn]="isUserLoggedOn" [usuario]="this.usuario"></app-header>
     <nav id="breadcrumbs">
@@ -34,18 +46,28 @@ import { Usuario } from '../../model/usuario';
           <img src="{{ product?.foto }}" [alt]="product?.descricao">
           <div>
             <p>{{ product?.descricao }}</p>
-            <div class="quantity-selector">
-              <button type="button" id="btn1" (click)="decreaseQuantity()">-</button>
-              <input 
-                type="text" 
-                [(ngModel)]="quantity" 
-                name="quantity" 
-                min="1"
-                formControlName="quantidade"
-              >
-              <button type="button" id="btn2" (click)="increaseQuantity()">+</button>
+            
+            <div style="font-family:'Roboto Flex', sans serif; display: flex; justify-content: space-between;">
+              <p style="color: var(--primary); font-size: 1.5rem; font-weight: 400;">$ {{ product?.preco }}</p>
+              <p style="color: var(--primary); font-size: 1.5rem; font-weight: 400;">{{ product?.quantidade }} u.</p>
             </div>
-            <button type="submit">Adicionar a pokébag</button>
+            
+
+            <div>
+              <div class="quantity-selector">
+                <button type="button" id="btn1" (click)="decreaseQuantity()">-</button>
+                <input 
+                  type="text" 
+                  [(ngModel)]="quantity" 
+                  name="quantity" 
+                  min="1"
+                  formControlName="quantidade"
+                >
+                <button type="button" id="btn2" (click)="increaseQuantity()">+</button>
+              </div>
+              <button type="submit">Adicionar a pokébag</button>
+            </div>
+            
           </div>    
         </form>
       </main>
@@ -73,6 +95,7 @@ export class ProductPageComponent implements OnInit {
     private router: Router,
     private appService: AppService,
     private authService: AuthService,
+    private dialog: MatDialog,
   ){
     this.authService.currentUser$.subscribe(user => {
       this.usuario = user;
@@ -92,15 +115,24 @@ export class ProductPageComponent implements OnInit {
     );
 
     if(res){
-      window.alert('Item adicionado à pokébag com sucesso!');
-      if (this.id) {
-        this.router.navigate(['/']);
-      } else {
-        this.router.navigate(['/']);
-    }
+      this.openDialog(
+        'Produto adicionado a sua pokébag! Acesse minhas compras e finalize a aquisição.',
+        'success'
+      );
+
     } else {
-      window.alert('Houve algum erro. Por favor, tente novamente');
+      this.openDialog(
+        'Houve algum erro. Por favor, tente novamente', 
+        'error'
+      );
     }
+  }
+
+  openDialog(message: string, type: 'success' | 'error'): void {
+    this.dialog.open(DialogComponent, {
+      width: '300px',
+      data: {message, type }
+    });
   }
 
   async consultarProduto(){

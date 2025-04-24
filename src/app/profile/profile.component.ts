@@ -10,96 +10,114 @@ import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-profile',
-  imports: [ReactiveFormsModule, CommonModule, HeaderComponent, FooterComponent],
+  imports: [ReactiveFormsModule, CommonModule, HeaderComponent, FooterComponent, RouterModule],
   template: `
     <app-header [isUserLoggedOn]="isUserLoggedOn" [usuario]="this.usuario"></app-header>
+    <div id="breadcrumbs">
+      <div>
+        <a [routerLink]="['/']">
+          <img 
+            src="general/home.png" 
+            alt=""
+          >
+        </a>
+        <p>></p>
+        <a>Minha conta</a>
+        <p>></p>
+        <a>Dashboard</a>
+      </div>
+    </div>
     <body>
       <main>
         <div class="section-1">
           <nav>
             <h2>Navegação</h2>
-            <div>
+            <div style="background-color: var(--bg1); border-left: 2px solid var(--primary);">
               <img 
-                src="" 
+                src="general/dash.png" 
                 alt=""
               >
               <p>Dashboard</p>
             </div>
-            <div>
+            <div [routerLink]="['/pokebag']">
               <img 
-                src="" 
+                src="general/bag.png" 
                 alt=""
               >
               <p>Pokébag</p>
             </div>
             <div>
               <img 
-                src="" 
+                src="general/pay.png" 
                 alt=""
               >
               <p>Minhas compras</p>
             </div>
-            <div>
+            <div (click)="signOutUsuario()">
               <img 
-                src="" 
+                src="general/out.png" 
                 alt=""
               >
               <p>Log-out</p>
             </div>
           </nav>
-          <div>
+          <div class="info">
             <img 
-              src="" 
+              src="foto-perfil.jpg" 
               alt=""
             >
             <h2>{{ usuario?.nome }}</h2>
             <p>Cliente</p>
           </div>
-          <form [formGroup]="profileForm" (ngSubmit)="saveEdition()">
-          <section class="profile-input-section">
-            <h2>ENDEREÇO</h2>
+          <div class="address">
+            <form [formGroup]="profileForm" (ngSubmit)="saveEdition()">
+              <section class="profile-input-section">
+                <h2>ENDEREÇO</h2>
 
-            <input 
-              type="text"
-              name="id"
-              id="id"
-              formControlName="id"
-              class="profile-input"
-              hidden
-            >
+                <input 
+                  type="text"
+                  name="id"
+                  id="id"
+                  formControlName="id"
+                  class="profile-input"
+                  hidden
+                >
 
-            <input 
-              type="text"
-              name="nome"
-              id="nome"
-              formControlName="nome"
-              class="profile-input"
-              [readonly]="isReadOnly"
-            >
+                <input 
+                  type="text"
+                  name="nome"
+                  id="nome"
+                  formControlName="nome"
+                  class="profile-input"
+                  [readonly]="isReadOnly"
+                >
 
-            <input 
-              type="text"
-              name="email"
-              id="email"
-              formControlName="email"
-              class="profile-input"
-              [readonly]="isReadOnly"
-            >
+                <input 
+                  type="text"
+                  name="endereco"
+                  id="endereco"
+                  formControlName="endereco"
+                  class="profile-input"
+                  [readonly]="isReadOnly"
+                >
 
-            <input 
-              type="text"
-              name="endereco"
-              id="endereco"
-              formControlName="endereco"
-              class="profile-input"
-              [readonly]="isReadOnly"
-            >
-          </section>
+                <input 
+                  type="text"
+                  name="email"
+                  id="email"
+                  formControlName="email"
+                  class="profile-input"
+                  [readonly]="isReadOnly"
+                >
+              </section>
 
-          <button (click)="enableEdition()">Editar</button>
-          <button type="submit" *ngIf="isReadOnly == false">Salvar</button>
-          <a (click)="deleteAccount()">Excluir conta</a>
-        </form>
+              <div class="actions">
+                <button *ngIf="isReadOnly" id="edit" (click)="enableEdition()" type="button">Editar dados</button>
+                <button id="save" type="submit" *ngIf="!isReadOnly">Salvar</button>
+                <a id="delete" (click)="deleteAccount()">Excluir conta</a>
+              </div>
+            </form>
+          </div>
         </div>
         <div class="section-2">
           <div>
@@ -158,21 +176,33 @@ export class ProfileComponent {
   }
 
   async saveEdition() {
+    try {
       const res = await this.appService.alterarDadosDoUsuario(
         this.profileForm.value.id ?? '',
         this.profileForm.value.nome ?? '',
         this.profileForm.value.email ?? '',
         this.profileForm.value.endereco ?? '',
       );
-
-      if(res){
+  
+      if (res) {
+        if (this.usuario) {
+          this.usuario.nome = this.profileForm.value.nome ?? this.usuario.nome;
+          this.usuario.email = this.profileForm.value.email ?? this.usuario.email;
+          this.usuario.endereco = this.profileForm.value.endereco ?? this.usuario.endereco;
+        }
+  
+        this.authService.setUser(this.usuario);
+  
         this.isReadOnly = true;
         window.alert('Edição realizada com sucesso!');
-        this.router.navigate(['/profile', this.usuario?.id]);
       } else {
         this.profileError = "Houve algum erro na edição. Por favor, tente novamente.";
       }
+    } catch (error) {
+      console.error('Erro ao salvar edição:', error);
+      this.profileError = "Erro ao salvar as alterações. Tente novamente.";
     }
+  }
 
   async deleteAccount () {
       const res = await this.appService.removerUsuario(this.route.snapshot.params['id']);
@@ -183,5 +213,17 @@ export class ProfileComponent {
       } else {
         this.profileError = "Houve algum erro na exclusão da conta.";
       }
+  }
+
+  async signOutUsuario() {
+    try {
+      await this.appService.desconectarUsuario();
+      this.authService.clearUser();
+      this.router.navigate(['/']);
+
+    } catch (error) {
+      console.error('Erro durante logout:', error);
+      this.router.navigate(['/']);
+      };
   }
 }

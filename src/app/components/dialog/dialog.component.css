@@ -1,0 +1,32 @@
+.dialog-container {
+    width: 300px;
+    height: 300px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    color: var(--txt);
+    border-radius: 12px;
+  }
+
+.dialog-container>img {
+    width: 70px;
+    padding-top: 1.5rem;
+}
+
+.dialog-container>p {
+    padding: 1rem;
+    font-size: 1.3rem;
+}
+
+.dialog-actions>button {
+    height: 60px;
+    font-size: 1.3rem;
+    border-radius: 0;
+    font-weight: 300;
+    width: 300px;
+    color: var(--white);
+    background-color: var(--primary);
+}

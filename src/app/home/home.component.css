@@ -215,7 +215,7 @@ main {
 
 .carousel1-card {
     width: 200px;
-    height: 300px;
+    min-height: 320px;
     background-color: var(--white);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.01);
     border-radius: 10px;
@@ -237,10 +237,22 @@ main {
 }
 
 .carousel1-card>p {
-    font-family: sans-serif;
-    font-size: 0.8rem;
-    font-weight: bold;
-    padding-top: 10px;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    font-weight: 200;
+    font-size: 0.9rem;
+    font-family: "Roboto Flex", sans-serif;
+}
+
+.carousel1-card>div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.carousel1-card>div>h2 {
+    font-family: "Roboto Flex", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 /* CARROSSEL 2 */

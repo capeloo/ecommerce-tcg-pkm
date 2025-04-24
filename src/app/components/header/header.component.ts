@@ -55,7 +55,6 @@ import { AuthService } from '../../services/auth.service';
             >
           </a>
           <p>Olá, {{ usuario?.nome }}!</p>
-          <a (click)="signOutUsuario()">Sair</a>
         </div>
         <div id="divider">|</div>
         <div>
@@ -85,16 +84,4 @@ export class HeaderComponent {
     private appService: AppService,
     private authService: AuthService,
   ){}
-  
-  async signOutUsuario() {
-    try {
-      await this.appService.desconectarUsuario();
-      this.authService.clearUser();
-      this.router.navigate(['/']);
-
-    } catch (error) {
-      console.error('Erro durante logout:', error);
-      this.router.navigate(['/']);
-      };
-  }
 }

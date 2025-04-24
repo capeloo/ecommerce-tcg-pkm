@@ -53,10 +53,16 @@ main {
 
 .form-content>div>p {
     font-family: "Roboto Flex", sans-serif;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-weight: 600;
 }
 
-.form-content>div>button {
+.form-content>div>div {
+    display: flex;
+    align-items: center;
+}
+
+.form-content>div>div>button {
     width: 200px;
     height: 50px;
     background-color: var(--primary);
@@ -65,10 +71,10 @@ main {
     font-size: 1rem;
     border: 2px solid var(--primary);
     border-radius: 4px;
-    
+    margin-left: 1rem;
 }
 
-.form-content>div>button:hover {
+.form-content>div>div>button:hover {
     cursor: pointer;
     color: var(--primary);
     background-color: var(--white);
@@ -78,33 +84,35 @@ main {
 
 #btn1 {
     width: 30px;
-    height: 40px;
+    height: 50px;
     font-family: "Roboto Flex", sans-serif;
     font-size: 1rem;
     background-color: var(--white);
-    border: 1px solid rgba(0, 0, 0, 0.258);
+    border: 2px solid var(--bg1);
     border-radius: 6px 0px 0px 6px;
 }
 
 #btn2 {
     width: 30px;
-    height: 40px;
+    height: 50px;
     font-family: "Roboto Flex", sans-serif;
     font-size: 1rem;
     background-color: var(--white);
-    border: 1px solid rgba(0, 0, 0, 0.258);
+    border: 2px solid var(--bg1);
     border-radius: 0px 6px 06px 0px;
 }
 
-.quantity-selector>button:hover {
+div>.quantity-selector>button:hover {
     cursor: pointer;
 }
 
-.quantity-selector>input {
+div>.quantity-selector>input {
     width: 30px;
-    height: 38px;
+    height: 50px;
     font-family: "Roboto Flex", sans-serif;
     font-size: 1rem;
-    border: 1px solid rgba(0, 0, 0, 0.258);
+    border: 1px solid var(--bg1);
+    border-left: 0;
+    border-right: 0;
     padding-left: 20px;
 }
