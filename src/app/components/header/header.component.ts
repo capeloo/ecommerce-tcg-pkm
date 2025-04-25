@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
       <!-- Logo -->
       <a [routerLink]="['/']" id="logo">
         <img 
-          src="general/celadon-mall.png" 
+          src="general-images/celadon-mall.png" 
           alt="Celadon Mall logo"
         >
       </a>
@@ -21,7 +21,7 @@ import { AuthService } from '../../services/auth.service';
       <!-- Search bar -->
       <div id="search">
         <img 
-          src="general/search.png" 
+          src="general-images/search.png" 
           alt="Search icon"
         >
         <input 
@@ -37,7 +37,7 @@ import { AuthService } from '../../services/auth.service';
         <div *ngIf="!isUserLoggedOn">
           <a [routerLink]="['/auth']">
             <img 
-              src="general/user.png" 
+              src="general-images/user.png" 
               alt="User icon"
             >
           </a>
@@ -50,7 +50,7 @@ import { AuthService } from '../../services/auth.service';
         <div id="profile" *ngIf="isUserLoggedOn">
           <a [routerLink]="['/profile', usuario?.id]">
             <img 
-              src="foto-perfil.jpg" 
+              src="general-images/foto-perfil.jpg" 
               alt=""
             >
           </a>
@@ -60,7 +60,7 @@ import { AuthService } from '../../services/auth.service';
         <div>
           <a [routerLink]="['/pokebag']">
             <img 
-              src="general/pokebag.png" 
+              src="general-images/pokebag.png" 
               alt="Pokebag icon"
             >
           </a>

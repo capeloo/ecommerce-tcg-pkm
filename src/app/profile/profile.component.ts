@@ -17,7 +17,7 @@ import { AuthService } from '../services/auth.service';
       <div>
         <a [routerLink]="['/']">
           <img 
-            src="general/home.png" 
+            src="general-images/home.png" 
             alt=""
           >
         </a>
@@ -34,28 +34,28 @@ import { AuthService } from '../services/auth.service';
             <h2>Navegação</h2>
             <div style="background-color: var(--bg1); border-left: 2px solid var(--primary);">
               <img 
-                src="general/dash.png" 
+                src="general-images/dash.png" 
                 alt=""
               >
               <p>Dashboard</p>
             </div>
             <div [routerLink]="['/pokebag']">
               <img 
-                src="general/bag.png" 
+                src="general-images/bag.png" 
                 alt=""
               >
               <p>Pokébag</p>
             </div>
             <div>
               <img 
-                src="general/pay.png" 
+                src="general-images/pay.png" 
                 alt=""
               >
               <p>Minhas compras</p>
             </div>
             <div (click)="signOutUsuario()">
               <img 
-                src="general/out.png" 
+                src="general-images/out.png" 
                 alt=""
               >
               <p>Log-out</p>
@@ -63,7 +63,7 @@ import { AuthService } from '../services/auth.service';
           </nav>
           <div class="info">
             <img 
-              src="foto-perfil.jpg" 
+              src="general-images/foto-perfil.jpg" 
               alt=""
             >
             <h2>{{ usuario?.nome }}</h2>

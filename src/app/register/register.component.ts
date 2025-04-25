@@ -15,7 +15,7 @@ import { FooterComponent } from '../components/footer/footer.component';
       <div>
         <a [routerLink]="['/']">
           <img 
-            src="general/home.png" 
+            src="general-images/home.png" 
             alt=""
           >
         </a>
@@ -27,7 +27,7 @@ import { FooterComponent } from '../components/footer/footer.component';
       <main class="register-main">
         <form [formGroup]="registerForm" (ngSubmit)="registerUsuario()" class="register-form">
           <img 
-            src="logo.png" 
+            src="general-images/logo.png" 
             alt="logo"
             class="register-logo"
           > 

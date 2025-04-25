@@ -17,7 +17,7 @@ import { AuthService } from '../services/auth.service';
       <div>
         <a [routerLink]="['/']">
           <img 
-            src="general/home.png" 
+            src="general-images/home.png" 
             alt=""
           >
         </a>

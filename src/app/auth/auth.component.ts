@@ -17,7 +17,7 @@ import { AuthService } from '../services/auth.service';
       <div>
         <a [routerLink]="['/']">
           <img 
-            src="general/home.png" 
+            src="general-images/home.png" 
             alt=""
           >
         </a>
@@ -29,7 +29,7 @@ import { AuthService } from '../services/auth.service';
       <main class="auth-main">
         <form [formGroup]="authForm" (ngSubmit)="signInUsuario()" class="auth-form">
           <img 
-            src="logo.png" 
+            src="general-images/logo.png" 
             alt="logo"
             class="auth-logo"
           > 

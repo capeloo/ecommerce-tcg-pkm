@@ -77,13 +77,10 @@ import { AuthService } from '../services/auth.service';
             <a [routerLink]="['/product']">Veja mais <span style="color: var(--primary);">></span></a>
           </div>
           <hr>
-          <div *ngFor="">
-            <div>
-              <img 
-                src="" 
-                [alt]=""
-              >
-              <p></p>
+          <div class="categories" >
+            <div id="category-card" *ngFor="let category of categories">
+              <div [ngStyle]="{ 'background-image': 'url(' + category.foto + ')' }"></div>
+              <p>{{ category.nome }}</p>
             </div>
           </div>
         </section>
@@ -95,9 +92,9 @@ import { AuthService } from '../services/auth.service';
           </div>
           <hr>
           <div id="carousel3-content">
-            <a href=""><img src="prism-evos.png" alt=""></a>
-            <a href=""><img src="stellar-crown1.png" alt=""></a>
-            <a href=""><img src="paradoxal-rift.png" alt=""></a>
+            <a href=""><img src="general-images/prism-evos.png" alt=""></a>
+            <a href=""><img src="general-images/stellar-crown1.png" alt=""></a>
+            <a href=""><img src="general-images/paradoxal-rift.png" alt=""></a>
           </div>
          </section>
       </main>
@@ -117,10 +114,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   startIndex = 0;
   itemsPerPage = 5;
 
+  categories: Categoria[] = [];
+
   images = [
-    'stellar-crown.jpg',
-    'surging-sparks.jpg',
-    'prismatic-evolution.jpg'
+    'general-images/stellar-crown.jpg',
+    'general-images/surging-sparks.jpg',
+    'general-images/prismatic-evolution.jpg'
   ];
 
   currentIndex = 0;
@@ -140,6 +139,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.appService.buscarProdutos().then(prods => {
       if(prods){
         this.products = prods;
+      }
+    });
+
+    this.appService.buscarCategorias().then(cats => {
+      if(cats){
+        this.categories = cats;
       }
     });
 

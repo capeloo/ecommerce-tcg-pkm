@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
     <footer>
       <div>
         <img 
-          src="general/celadon-mall.png" 
+          src="general-images/celadon-mall.png" 
           alt=""
         >
         <div id="sobre">
@@ -25,7 +25,7 @@ import { Component } from '@angular/core';
           <hr>
           <div>
             <img 
-              src="general/linkedin.png" 
+              src="general-images/linkedin.png" 
               alt=""
             >
             <div>
@@ -35,7 +35,7 @@ import { Component } from '@angular/core';
           </div>
         <div>
             <img 
-              src="general/linkedin.png" 
+              src="general-images/linkedin.png" 
               alt=""
             >
             <div>
@@ -45,7 +45,7 @@ import { Component } from '@angular/core';
           </div>
           <div>
             <img 
-              src="general/linkedin.png" 
+              src="general-images/linkedin.png" 
               alt=""
             >
             <div>

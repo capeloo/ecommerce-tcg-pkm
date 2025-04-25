@@ -23,7 +23,7 @@ import { AppService } from '../services/app.service';
         <tbody>
           <tr *ngFor="let categoria of listCats">
             <td>{{ categoria.nome }}</td>
-            <td>{{ categoria.photo }}</td>
+            <td>{{ categoria.foto }}</td>
             <td>
               <a [routerLink]="['/editcat', categoria.id]">Editar</a>
               <a (click)="deleteCategory(categoria.id.toString())">Excluir</a>

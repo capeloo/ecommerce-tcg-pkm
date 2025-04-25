@@ -1,7 +1,7 @@
 footer {
     min-width: 1260px;
     height: 400px;
-    background-image: url(../../../../public/general/footer.png);
+    background-image: url(../../../../public/general-images/footer.png);
     background-size: auto;
 
     display: flex;

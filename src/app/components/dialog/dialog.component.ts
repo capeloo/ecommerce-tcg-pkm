@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="dialog-container">
       <img 
-        src="pikachu.png" 
+        src="general-images/pikachu.png" 
         alt=""
       >
       <p>{{ data.message }}</p>
